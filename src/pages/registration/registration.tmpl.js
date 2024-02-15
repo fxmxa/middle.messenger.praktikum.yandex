@@ -1,7 +1,7 @@
 import common from '@/styles/common.module.scss'
 
 export default `
-<div class="${common.layout_notAuth}">
+<main class="${common.layout_notAuth}">
   <div class="${common.card} ${common.card_modal}">
     <h2>Регистрация</h2>
     <form>
@@ -15,5 +15,5 @@ export default `
       <a href="/?page=login">Воите в аккаунт</a>
     </form>
   </div>
-</div>
+</main>
 `

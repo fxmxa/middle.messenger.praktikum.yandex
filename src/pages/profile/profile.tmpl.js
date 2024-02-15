@@ -2,7 +2,7 @@ import common from '@/styles/common.module.scss'
 import profile from "@/pages/profile/profile.module.scss";
 
 export default `
-<div class="${common.layout_notAuth}">
+<main class="${common.layout_notAuth}">
   <div class="${common.card}">
     <h2>Профиль</h2>
     <div class="${common.dFlex} ${common.mb1}">
@@ -14,5 +14,5 @@ export default `
     </div>
     <a href="/?page=profile-edit">Изменить</a>
   </div>    
-</div>
+</main>
 `

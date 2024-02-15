@@ -1,7 +1,7 @@
 import common from '@/styles/common.module.scss'
 
 export default `
-<div class="${common.layout_notAuth}">
+<main class="${common.layout_notAuth}">
   <div class="${common.card}">
     <h2>Изменить пароль</h2>
     <form>
