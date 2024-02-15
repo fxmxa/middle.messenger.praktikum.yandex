@@ -1,0 +1,22 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite build && node index.js"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0",
+    "vite": "^5.0.8"
+  },
+  "engines": {
+    "node": ">=20.0.0 <21.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
