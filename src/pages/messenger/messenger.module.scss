@@ -5,14 +5,14 @@
 
   &__sidebar {
     width: 300px;
-    border-right: lightgrey 1px solid;
+    border-right: var(--bg-secondary) 1px solid;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   &__settings {
-    border-top: lightgrey 1px solid;
+    border-top: var(--bg-secondary) 1px solid;
     padding: 20px;
 
   }
@@ -31,7 +31,7 @@
 }
 .info {
   padding: 10px;
-  border-bottom: lightgrey 1px solid;
+  border-bottom: var(--bg-secondary) 1px solid;
   width: 100%;
 }
 
@@ -42,8 +42,8 @@
   overflow-y: scroll;
 
   &__date {
-    color: darkgray;
-    border: lightgrey 1px solid;
+    color: var(--text-dark-secondary);
+    border: var(--bg-secondary) 1px solid;
     border-radius: 10px;
     padding: 3px 5px;
     place-self: center;
@@ -64,8 +64,8 @@
     }
 
     &__item {
-      color: darkgray;
-      border: lightgrey 1px solid;
+      color: var(--text-dark-secondary);
+      border: var(--bg-secondary) 1px solid;
       border-radius: 10px;
       padding: 5px 10px;
       margin-bottom: 10px;
@@ -88,7 +88,7 @@
 
   &__input {
     width: calc(100% - 100px);
-    border: 1px solid lightgrey;
+    border: 1px solid var(--bg-secondary);
     border-radius: 5px;
     padding: 10px;
     margin-right: 10px;
@@ -96,14 +96,14 @@
     transition: .3s border;
 
     &:hover {
-      border: 1px solid darken(lightgrey, 10);
+      border: 1px solid var(--bg-secondary-hover);
     }
   }
 
   &__button {
     width: 100px;
     background: none;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--bg-secondary);
     cursor: pointer;
     transition: .3s border;
     border-radius: 5px;
@@ -112,7 +112,7 @@
     font-family: var(--font-family);
 
     &:hover {
-      border: 1px solid darken(lightgrey, 10);
+      border: 1px solid var(--bg-secondary-hover);
     }
   }
 }
