@@ -1,0 +1,13 @@
+.text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+
+  &__login {
+    color: var(--text-dark-secondary);
+    font-size: 14px;
+  }
+
+
+}
+
