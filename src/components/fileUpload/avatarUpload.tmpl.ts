@@ -1,6 +1,5 @@
 import classes from "./avatarUpload.module.scss";
 import common from '@/styles/common.module.scss'
-import avatarUpload from "@/components/fileUpload/avatarUpload.js";
 
 export default `
 <div class="${classes.wrapper}">

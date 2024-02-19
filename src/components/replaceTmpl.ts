@@ -1,14 +1,14 @@
-import field from "@/components/field/field.js";
-import avatarUpload from "@/components/fileUpload/avatarUpload.js";
-import contact from "@/components/contact/contact.js";
+import field from "@/components/field/field.ts";
+import avatarUpload from "@/components/fileUpload/avatarUpload.ts";
+import contact from "@/components/contact/contact.ts";
 
-const components = {
+const components: Record<string, string> = {
   'field': field,
   'avatarUpload': avatarUpload,
   'contact': contact,
 }
 
-export default  (tmpl, componentsList) => {
+export default  (tmpl: string, componentsList: string[]) => {
   let newHtml = tmpl
 
   componentsList.map( async(componentName) => {
@@ -18,7 +18,7 @@ export default  (tmpl, componentsList) => {
       return
 
     const openTagRe = new RegExp( `<${componentName}.+>`, 'gm')
-    let match = []
+    let match: RegExpMatchArray | null = null
 
     while (( match = openTagRe.exec(tmpl)) !== null) {
       const find = match[0]
@@ -28,7 +28,8 @@ export default  (tmpl, componentsList) => {
       props.forEach( el => {
         const [key, rawValue] = el.split('=')
         const valRegExp = /".+"/
-        const value = rawValue?.match(valRegExp)[0].slice(1, -1).replaceAll('_', ' ')
+
+        const value = rawValue?.match(valRegExp)?.[0].slice(1, -1).replaceAll('_', ' ')
 
         if(value)
           newHtml = newHtml.replaceAll(`{{${key}}}`, value)

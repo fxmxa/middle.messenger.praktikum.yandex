@@ -1,4 +1,4 @@
 import './src/styles/main.scss'
-import route from './src/router/index.js'
+import route from './src/router'
 
 document.querySelector('#app').innerHTML = route
