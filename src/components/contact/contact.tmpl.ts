@@ -1,5 +1,5 @@
-import profile from "@/pages/profile/profile.module.scss";
-import common from '@/styles/common.module.scss'
+import profile from '@/pages/profile/profile.module.scss';
+import common from '@/styles/common.module.scss';
 
 export default `
 <div class="${common.dFlex} ${common.mb1} ${common.mbLast0}">
@@ -9,4 +9,4 @@ export default `
     <span class="${profile.text__login}">{{message}}</span>     
   </div>
 </div>
-`
+`;

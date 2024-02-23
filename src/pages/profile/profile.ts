@@ -1,3 +1,3 @@
-import profileTmpl from "./profile.tmpl.ts";
+import profileTmpl from './profile.tmpl.ts';
 
-export default profileTmpl
+export default profileTmpl;

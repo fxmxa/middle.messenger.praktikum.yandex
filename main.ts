@@ -1,4 +1,8 @@
-import './src/styles/main.scss'
-import route from './src/router'
+import './src/styles/main.scss';
+import route from './src/router/index.ts';
 
-document.querySelector('#app').innerHTML = route
+const app = document.querySelector('#app');
+
+if (app) {
+  app.innerHTML = route;
+}

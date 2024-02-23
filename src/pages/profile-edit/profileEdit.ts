@@ -1,6 +1,6 @@
-import profileEditTmpl from "./profileEdit.tmpl.ts";
+import replaceTmpl from '@/components/replaceTmpl.ts';
+import profileEditTmpl from './profileEdit.tmpl.ts';
 
-import replaceTmpl from "@/components/replaceTmpl.ts";
-const components: string[] = ['field', 'avatarUpload']
+const components: string[] = ['field', 'avatarUpload'];
 
-export default replaceTmpl(profileEditTmpl, components)
+export default replaceTmpl(profileEditTmpl, components);

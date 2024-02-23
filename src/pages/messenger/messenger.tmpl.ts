@@ -1,5 +1,5 @@
-import common from '@/styles/common.module.scss'
-import classes from './messenger.module.scss'
+import common from '@/styles/common.module.scss';
+import classes from './messenger.module.scss';
 
 export default `
 <div class="${common.layout_notAuth}">
@@ -64,4 +64,4 @@ export default `
     </div>
   </div>    
 </div>
-`
+`;

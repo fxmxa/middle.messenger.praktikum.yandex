@@ -1,5 +1,5 @@
-import classes from "./avatarUpload.module.scss";
-import common from '@/styles/common.module.scss'
+import common from '@/styles/common.module.scss';
+import classes from './avatarUpload.module.scss';
 
 export default `
 <div class="${classes.wrapper}">
@@ -8,4 +8,4 @@ export default `
       Загрузить аватар
   </label>
   <input id="avatar-upload" type="file" class="${classes.input}"/>
-</div>`
+</div>`;

@@ -1,3 +1,3 @@
-import contactTmpl from "@/components/contact/contact.tmpl.ts";
+import contactTmpl from '@/components/contact/contact.tmpl.ts';
 
-export default contactTmpl
+export default contactTmpl;

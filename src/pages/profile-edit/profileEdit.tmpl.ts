@@ -1,4 +1,4 @@
-import common from '@/styles/common.module.scss'
+import common from '@/styles/common.module.scss';
 
 export default `
 <main class="${common.layout_notAuth}">
@@ -20,4 +20,4 @@ export default `
     </form>
   </div>    
 </div>
-`
+`;

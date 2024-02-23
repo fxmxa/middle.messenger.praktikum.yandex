@@ -1,6 +1,5 @@
-import fileUploadTmpl from "./avatarUpload.tmpl.ts";
+import fileUploadTmpl from './avatarUpload.tmpl.ts';
 
-const avatarUpload: string = fileUploadTmpl.trim()
+const avatarUpload: string = fileUploadTmpl.trim();
 
-
-export default avatarUpload
+export default avatarUpload;

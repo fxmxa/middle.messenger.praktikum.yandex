@@ -1,4 +1,4 @@
-import common from '@/styles/common.module.scss'
+import common from '@/styles/common.module.scss';
 
 export default `
 <main class="${common.layout_notAuth}">
@@ -9,4 +9,4 @@ export default `
     <a href="mailto:kostikovmu@ya.ru" target="_blank" class="${common.dB} ${common.mt1}">Сообщить об ошибке</a>
   </div>    
 </main>
-`
+`;
