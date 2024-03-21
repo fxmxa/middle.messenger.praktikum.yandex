@@ -7,7 +7,7 @@ export default `
     <form>
       <field label="Логин" id="login" type="text"/>
       <field label="Пароль" id="password" type="password"/>
-      <button type="submit"   class="${common.btn} ${common.mb1}">Войти</button>
+      <btn text="Войти"/>
       <a href="/?page=registration">Создать аккаунт</a>
     </form>
   </div>    

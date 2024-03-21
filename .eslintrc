@@ -14,8 +14,15 @@
     "max-len": [2, 120],
     "max-params": [2, 3],
     "no-console": "off",
-    "eol-last": 0
+    "eol-last": 0,
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off"
   },
+  "env":    {
+    "browser": true
+  },
+
 
 
   "settings": {
