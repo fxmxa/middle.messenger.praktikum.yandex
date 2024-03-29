@@ -1,60 +1,71 @@
-import EventBus from './EventBus.ts';
+import EventBus, { EventCallback } from '@/utils/EventBus.ts';
+import insertProps from '@/utils/insertProps.ts';
 
 type PropsFunc = (...args: string[]) => void
-type Props = Record<string, string | PropsFunc>
+export type Props = Record<string, string | PropsFunc | string[]>
 
 type Meta = {
   tagName: string,
   props: Props,
 }
 
+export type ElementEvent = {
+  event: string,
+  callback: EventCallback
+}
+
 export default class Block {
   static EVENTS = {
-    INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
   };
 
-  _element: null | HTMLElement = null;
+  _element: HTMLElement;
 
   _meta: Meta;
+
+  tmpl: string;
+
+  children;
+
+  events;
 
   eventBus;
 
   props: Props;
 
-  constructor(tagName: string = 'div', props = {}) {
+  constructor(
+    props: Props,
+    tmpl: string,
+    tagName = 'div',
+    children:Block[] = [],
+    events: ElementEvent[] = [],
+  ) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
       props,
     };
-
+    this.events = events;
+    this.children = children;
     this.props = this._makePropsProxy(props);
-
     this.eventBus = (): EventBus => eventBus;
-
+    this.tmpl = tmpl;
+    this._element = this._createDocumentElement(tagName);
     this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-  }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-
-  init() {
-    this._createResources();
-
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this.events.forEach(({ event, callback }) => {
+      this._element.addEventListener(event, callback);
+    });
   }
 
   _componentDidMount(oldProps: Props) {
@@ -77,9 +88,13 @@ export default class Block {
     this._render();
   }
 
-  componentDidUpdate(oldProps: Props, newProps: Props) {
-    console.log(oldProps, newProps);
-    return true;
+  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    if (Object.keys(oldProps).length !== Object.keys(newProps).length) {
+      return true;
+    }
+    const propChanged = Object.keys(oldProps).find((key) => oldProps[key] !== newProps[key]);
+
+    return propChanged !== undefined;
   }
 
   setProps = (nextProps: Props) => {
@@ -96,17 +111,25 @@ export default class Block {
 
   _render() {
     const block = this.render();
-    // Этот небезопасный метод для упрощения логики
-    // используйте шаблонизатор из npm или напишите свой безопасный.
-    // Нужно не в строку компилировать (или делать это правильно),
-    // либо сразу в DOM-элементы возвращать из compile DOM-ноду
     if (!this._element) return;
 
-    this._element.innerHTML = block;
+    const tempElement = this._createDocumentElement('div');
+    tempElement.innerHTML = block;
+    const tempElementInner = tempElement.children[0];
+
+    const tempElementHtml = tempElementInner.innerHTML?.trim() ?? '';
+    const tempElementAttrs = tempElementInner.attributes;
+
+    this._element.innerHTML = tempElementHtml;
+    if (tempElementAttrs) {
+      [...tempElementAttrs].forEach((attr) => this._element?.setAttribute(attr.nodeName, attr?.nodeValue ?? ''));
+    }
+    this.children.forEach((child) => this._element.appendChild(child.getContent()));
+    tempElement.remove();
   }
 
   render() {
-    return '';
+    return insertProps(this.tmpl, this.props);
   }
 
   getContent() {

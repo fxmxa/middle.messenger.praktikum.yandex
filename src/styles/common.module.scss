@@ -6,6 +6,7 @@
   --bg-secondary-hover: #bdbdbd;
 
   --text-secondary: gray;
+  --text-danger: red;
   --text-dark-secondary: darkgrey;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .layout {
-  &_not-auth {
+  &_default {
     display: flex;
     align-items: center;
     justify-content: center;

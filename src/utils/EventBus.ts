@@ -1,4 +1,4 @@
-type EventCallback<T extends unknown[] = any[]> = (args:T) => void
+export type EventCallback<T extends unknown[] = any[]> = (...args:T) => void | boolean
 
 export default class EventBus {
   listeners: Record<string, EventCallback[]>;
@@ -27,7 +27,7 @@ export default class EventBus {
     }
 
     this.listeners[event].forEach((fn) => {
-      fn([...args]);
+      fn(...args);
     });
   }
 }

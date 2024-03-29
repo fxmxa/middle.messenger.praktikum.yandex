@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "tsc && vite build && node index.js"
+    "start": "tsc && vite build && node index.js",
+    "eslint": "eslint . --ext .ts",
+    "check-types" : "tsc --noemit"
   },
   "devDependencies": {
     "@types/has": "^1.0.2",
