@@ -30,7 +30,6 @@
     "./main.ts",
     "./.eslintrc",
     "./vite.config.js",
-    "./*.js",
-  ],
+    "./*.js"
+  ]
 }
-
