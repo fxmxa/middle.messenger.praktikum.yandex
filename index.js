@@ -1,13 +1,13 @@
-import express from 'express'
-import path from 'path'
+import express from 'express';
+import path from 'path';
 
-const PORT = 3000
+const PORT = 3000;
 
-const app = express()
+const app = express();
 
-const dirname = path.dirname('./')
+const dirname = path.dirname('./');
 
-app.use('/', express.static(dirname + '/dist'));
+app.use('/', express.static(`${dirname}/dist`));
 app.listen(PORT, () => {
-  console.log(`Port ${PORT} listen...`)
-})
+  console.log(`Port ${PORT} listen...`);
+});
