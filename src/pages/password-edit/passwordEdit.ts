@@ -16,8 +16,8 @@ const form = new Block(
   'form',
   [
     new Title({ text: 'Изменить пароль' }),
-    passwordField(),
-    passwordField('Повторите пароль', 'passwordRepeat'),
+    passwordField('Пароль', 'oldPassword'),
+    passwordField('Повторите пароль', 'newPassword'),
     new BtnGroup({}, [
       new Button({ text: 'Отмена', class: cancelClasses }),
       new Button({ text: 'Сохранить' }),

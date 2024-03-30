@@ -24,12 +24,17 @@ function queryStringify(data: Data) {
   return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '');
 }
 
-class HTTPTransport {
-  get = (url: string, options: Options) => this.request(
-    url,
-    { ...options, method: METHODS.GET },
-    options.timeout,
-  );
+export class HTTPTransport {
+  get = (url: string, options: Options) => {
+    const { data } = options;
+    const query = data ? queryStringify(data) : '';
+    const fullUrl = url + (query ? `?${query}` : '');
+    return this.request(
+      fullUrl,
+      { ...options, method: METHODS.GET, data: undefined },
+      options.timeout,
+    );
+  };
 
   post = (url: string, options: Options) => this.request(
     url,
@@ -63,17 +68,7 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
-
-      const query = data ? queryStringify(data) : '';
-      const getQuery = query ? `?${query}` : '';
-
-      xhr.open(
-        method,
-        isGet && !!data
-          ? `${url}${getQuery}`
-          : url,
-      );
+      xhr.open(method, url);
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -82,25 +77,24 @@ class HTTPTransport {
       xhr.onload = () => {
         resolve(xhr);
       };
-
       xhr.onabort = reject;
+      xhr.ontimeout = reject;
       xhr.onerror = () => {
         reject(new Error('onError'));
       };
-
       xhr.timeout = timeout;
-      xhr.ontimeout = reject;
 
-      if (isGet || !data) {
+      if (!data) {
         xhr.send();
       } else {
+        const query = data ? queryStringify(data) : null;
         xhr.send(query);
       }
     });
   };
 }
 
-function fetchWithRetry(url: string, options: Options) {
+export function fetchWithRetry(url: string, options: Options) {
   return new Promise((resolve, reject) => {
     const transport = new HTTPTransport();
     transport.get(url, options)
@@ -114,5 +108,3 @@ function fetchWithRetry(url: string, options: Options) {
       });
   });
 }
-
-export default fetchWithRetry;

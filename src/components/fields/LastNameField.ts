@@ -6,7 +6,7 @@ import validateField from '@/utils/validateField.ts';
 export default (fieldValue = '') => {
   const field = new Field(
     {
-      id: 'last_name',
+      id: 'second_name',
       type: 'text',
       label: 'Фамилия',
       value: fieldValue,
