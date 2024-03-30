@@ -19,7 +19,7 @@ export default class Block {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
-  };
+  } as const;
 
   _element: HTMLElement;
 
@@ -62,9 +62,23 @@ export default class Block {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+  }
 
+  _removeEvents() {
     this.events.forEach(({ event, callback }) => {
-      this._element.addEventListener(event, callback);
+      if (!event || !callback) {
+        return;
+      }
+      this._element?.removeEventListener(event, callback);
+    });
+  }
+
+  _addEvents() {
+    this.events.forEach(({ event, callback }) => {
+      if (!event || !callback) {
+        return;
+      }
+      this._element?.addEventListener(event, callback);
     });
   }
 
@@ -85,6 +99,7 @@ export default class Block {
     if (!response) {
       return;
     }
+    this._removeEvents();
     this._render();
   }
 
@@ -126,6 +141,7 @@ export default class Block {
     }
     this.children.forEach((child) => this._element.appendChild(child.getContent()));
     tempElement.remove();
+    this._addEvents();
   }
 
   render() {
@@ -137,8 +153,6 @@ export default class Block {
   }
 
   _makePropsProxy(props: Props) {
-    // Можно и так передать this
-    // Такой способ больше не применяется с приходом ES6+
     const self = this;
 
     return new Proxy(props, {
@@ -151,8 +165,6 @@ export default class Block {
         const newPops = target;
         newPops[prop] = value;
 
-        // Запускаем обновление компоненты
-        // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, newPops);
         return true;
       },
@@ -163,7 +175,6 @@ export default class Block {
   }
 
   _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
 

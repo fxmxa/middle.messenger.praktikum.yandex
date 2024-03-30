@@ -8,6 +8,7 @@
 - `npm run dev` — запуск версии для разработчика
 - `npm run eslint` — проверка eslint
 - `npm run check-types` — проверка типов eslint
+- `npm run stylelint` — проверка стилей
 - `npm run start` — сборка продакшен версии и запуск express сервера по адресу http://localhost:3000/
 
 ## Ссылка на проект в netlify
