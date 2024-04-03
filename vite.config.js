@@ -1,18 +1,18 @@
-import {defineConfig} from "vite";
-import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
   css: {
     modules: {
-      localsConvention: 'dashes'
-    }
+      localsConvention: 'dashes',
+    },
   },
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
-    target: 'esnext' //browsers can handle the latest ES features
+    target: 'esnext', // browsers can handle the latest ES features
   },
-})
+});

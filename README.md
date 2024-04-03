@@ -6,6 +6,9 @@
 
 - `npm install` — установка пакетов
 - `npm run dev` — запуск версии для разработчика
+- `npm run eslint` — проверка eslint
+- `npm run check-types` — проверка типов eslint
+- `npm run stylelint` — проверка стилей
 - `npm run start` — сборка продакшен версии и запуск express сервера по адресу http://localhost:3000/
 
 ## Ссылка на проект в netlify
@@ -24,6 +27,8 @@ https://deploy--messenger-339f64.netlify.app/
 - http://localhost:5173/?page=error500 ошибка 500
 - http://localhost:5173/?page=error404 ошибка 404
 
+## Функционал
 
-
-
+- компонентный подход
+- валидация полей формы
+- сбор данных формы
