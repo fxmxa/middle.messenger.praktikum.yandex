@@ -7,6 +7,7 @@ import common from '@/styles/common.module.scss';
 import BtnGroup from '@/@core/components/btnGroup/btnGroup.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getDataForm from '@/utils/getDataForm.ts';
+import Layout from '@/layouts/default/default.ts';
 
 const cancelClasses = [common.mr1, common.btn_secondary].join(' ');
 
@@ -38,4 +39,6 @@ function onSubmit(e: Event) {
   console.log('formData', formData);
 }
 
-export default form;
+const passwordEditPage = new Layout({}, [form]);
+
+export default passwordEditPage;

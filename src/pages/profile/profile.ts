@@ -1,4 +1,5 @@
 import Block from '@/utils/Block.ts';
+import Layout from '@/layouts/default/default.ts';
 import profileTmpl from './profile.tmpl.ts';
 
 const profile = new Block(
@@ -6,4 +7,6 @@ const profile = new Block(
   profileTmpl,
 );
 
-export default profile;
+const profilePage = new Layout({}, [profile]);
+
+export default profilePage;

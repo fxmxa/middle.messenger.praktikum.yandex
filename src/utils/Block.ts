@@ -47,6 +47,7 @@ export default class Block {
       tagName,
       props,
     };
+
     this.events = events;
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -78,7 +79,7 @@ export default class Block {
       if (!event || !callback) {
         return;
       }
-      this._element?.addEventListener(event, callback);
+      this._element?.addEventListener(event, callback.bind(this));
     });
   }
 
@@ -181,7 +182,7 @@ export default class Block {
   show() {
     const element = this.getContent();
     if (!element) return;
-    element.style.display = 'block';
+    element.style.display = 'flex';
   }
 
   hide() {

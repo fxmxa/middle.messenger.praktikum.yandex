@@ -13,6 +13,7 @@ import EmailField from '@/components/fields/EmailField.ts';
 import PhoneField from '@/components/fields/PhoneField.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getDataForm from '@/utils/getDataForm.ts';
+import Layout from '@/layouts/default/default.ts';
 import profileEditTmpl from './profileEdit.tmpl.ts';
 
 const cancelClasses = [common.mr1, common.btn_secondary].join(' ');
@@ -38,7 +39,7 @@ const form = new Block(
       new Button({ text: 'Отмена', class: cancelClasses }),
       new Button({ text: 'Сохранить' }),
     ]),
-    new Link({ text: 'Изменить пароль', href: '/?page=password-edit' }),
+    new Link({ text: 'Изменить пароль', href: '/password-edit' }),
   ],
   [{ event: 'submit', callback: onSubmit }],
 
@@ -56,4 +57,6 @@ function onSubmit(e: Event) {
   console.log('formData', formData);
 }
 
-export default form;
+const profileEditPage = new Layout({}, [form]);
+
+export default profileEditPage;

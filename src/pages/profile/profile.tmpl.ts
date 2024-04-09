@@ -11,6 +11,6 @@ export default `
       <span class="${profile.text__login}">{{userName}}</span>     
     </div>  
   </div>
-  <a href="/?page=profile-edit">Изменить</a>
+  <a href="/profile-edit">Изменить</a>
 </div>    
 `.trim();

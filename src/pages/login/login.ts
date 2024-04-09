@@ -6,6 +6,7 @@ import LoginCreate from '@/components/fields/LoginField.ts';
 import PasswordCreate from '@/components/fields/PasswordField.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getDataForm from '@/utils/getDataForm.ts';
+import Layout from '@/layouts/default/default.ts';
 import loginTmpl from './login.tmpl.ts';
 
 const form = new Block(
@@ -17,7 +18,7 @@ const form = new Block(
     LoginCreate(),
     PasswordCreate(),
     new Button({ text: 'Войти' }),
-    new Link({ href: '/?page=registration', text: 'Создать аккаунт' }),
+    new Link({ href: '/registration', text: 'Создать аккаунт' }),
   ],
   [{ event: 'submit', callback: onSubmit }],
 );
@@ -33,5 +34,5 @@ function onSubmit(e: Event) {
   const formData = getDataForm(form);
   console.log('formData', formData);
 }
-
-export default form;
+const loginPage = new Layout({}, [form]);
+export default loginPage;

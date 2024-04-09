@@ -11,6 +11,7 @@ import LastNameField from '@/components/fields/LastNameField.ts';
 import EmailField from '@/components/fields/EmailField.ts';
 import PhoneField from '@/components/fields/PhoneField.ts';
 import getDataForm from '@/utils/getDataForm.ts';
+import Layout from '@/layouts/default/default.ts';
 
 const form = new Block(
   { name: 'registrationForm' },
@@ -25,7 +26,7 @@ const form = new Block(
     PasswordCreate(),
     PhoneField(),
     new Btn({ text: 'Зарегистрироваться' }),
-    new Link({ href: '/?page=login', text: 'Войти в аккаунт' }),
+    new Link({ href: '/login', text: 'Войти в аккаунт' }),
   ],
   [{ event: 'submit', callback: onSubmit }],
 
@@ -42,4 +43,7 @@ function onSubmit(e: Event) {
   const formData = getDataForm(form);
   console.log('formData', formData);
 }
-export default form;
+
+const registrationPage = new Layout({}, [form]);
+
+export default registrationPage;
