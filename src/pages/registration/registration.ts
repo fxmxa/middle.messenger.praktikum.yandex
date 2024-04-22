@@ -3,15 +3,21 @@ import Title from '@/@core/components/title/title.ts';
 import LoginCreate from '@/components/fields/LoginField.ts';
 import PasswordCreate from '@/components/fields/PasswordField.ts';
 import Btn from '@/@core/components/btn/btn.ts';
-import Link from '@/@core/components/link/link.ts';
 import registrationTmpl from '@/pages/registration/registration.tmpl.ts';
 import validateForm from '@/utils/validateForm.ts';
 import FirstNameField from '@/components/fields/FirstNameField.ts';
 import LastNameField from '@/components/fields/LastNameField.ts';
 import EmailField from '@/components/fields/EmailField.ts';
 import PhoneField from '@/components/fields/PhoneField.ts';
-import getDataForm from '@/utils/getDataForm.ts';
+import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
+import AuthController from '@/controllers/Auth.controller.ts';
+import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
+import router from '@/router/index.ts';
+import RouterLink from '@/@core/components/routerLink/routerLink.ts';
+
+const formHelp = new InputHelp({});
+const regBtn = new Btn({ text: 'Зарегистрироваться' });
 
 const form = new Block(
   { name: 'registrationForm' },
@@ -25,23 +31,34 @@ const form = new Block(
     EmailField(),
     PasswordCreate(),
     PhoneField(),
-    new Btn({ text: 'Зарегистрироваться' }),
-    new Link({ href: '/login', text: 'Войти в аккаунт' }),
+    regBtn,
+    new RouterLink({ to: '/login', text: 'Войти в аккаунт' }),
+    formHelp,
   ],
   [{ event: 'submit', callback: onSubmit }],
 
 );
 
-function onSubmit(e: Event) {
+async function onSubmit(e: Event) {
   e.preventDefault();
+  formHelp.setProps({ helpText: '' });
 
   const hasError = validateForm(form);
 
   if (hasError) {
     return;
   }
-  const formData = getDataForm(form);
-  console.log('formData', formData);
+  const formData = getFormData(form);
+  regBtn.setProps({ disabled: 'disabled' });
+  const regSuccess = await AuthController.singnup(formData);
+  if (!regSuccess) {
+    formHelp.setProps({ helpText: 'Ошибка регистрации' });
+  }
+  if (regSuccess) {
+    await AuthController.fetchUser();
+    router.go('/');
+  }
+  regBtn.setProps({ disabled: '' });
 }
 
 const registrationPage = new Layout({}, [form]);

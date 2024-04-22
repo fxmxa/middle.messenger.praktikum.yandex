@@ -1,4 +1,6 @@
 import './src/styles/main.scss';
-import route from './src/router/index.ts';
+import AuthController from '@/controllers/Auth.controller.ts';
+import router from './src/router/index.ts';
 
-route.start();
+await AuthController.fetchUser();
+router.start();

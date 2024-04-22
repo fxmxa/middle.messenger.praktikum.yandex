@@ -6,9 +6,14 @@ import fieldTmpl from './field.tmpl.ts';
 import Label from '../label/label.ts';
 
 class Field extends Block {
+  input;
+
   constructor(props: Props, events: ElementEvent[] = [], isSingle = false) {
     const inputEvents = events.filter((el) => el.event.startsWith('input:'))
       .map((el) => ({ event: el.event.replace('input:', ''), callback: el.callback }));
+
+    const input = new Input(props, inputEvents);
+    const helper = new InputHelp(props);
 
     super(
       props,
@@ -16,10 +21,15 @@ class Field extends Block {
       'div',
       [
         new Label(props),
-        new Input(props, inputEvents),
-        new InputHelp(props),
+        input,
+        helper,
       ],
     );
+    this.input = input;
+  }
+
+  clearInput() {
+    (this.input.getContent() as HTMLInputElement).value = '';
   }
 }
 

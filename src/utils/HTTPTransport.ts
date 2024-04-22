@@ -5,19 +5,19 @@ const METHODS = {
   DELETE: 'DELETE',
 } as const;
 
-type Data = Record<string, string>
+type Data = Record<string, string | number> | FormData
 
 type Options = {
   timeout?: number
   method?: keyof typeof METHODS
-  retries: number
+  retries?: number
   headers?: Record<string, string>
   data?: Data
 }
 
 function queryStringify(data: Data) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
+  if (typeof data !== 'object' || data instanceof FormData) {
+    throw new Error('Data must be plain object');
   }
 
   const keys = Object.keys(data);
@@ -25,10 +25,17 @@ function queryStringify(data: Data) {
 }
 
 export class HTTPTransport {
-  get = (url: string, options: Options) => {
+  baseUrl;
+
+  constructor() {
+    const baseUrl = 'https://ya-praktikum.tech/api/v2';
+    this.baseUrl = baseUrl;
+  }
+
+  get = (options: Options, route = '') => {
     const { data } = options;
     const query = data ? queryStringify(data) : '';
-    const fullUrl = url + (query ? `?${query}` : '');
+    const fullUrl = this.baseUrl + route + (query ? `?${query}` : '');
     return this.request(
       fullUrl,
       { ...options, method: METHODS.GET, data: undefined },
@@ -36,25 +43,28 @@ export class HTTPTransport {
     );
   };
 
-  post = (url: string, options: Options) => this.request(
-    url,
+  post = (options: Options, route = '') => this.request(
+    this.baseUrl + route,
     { ...options, method: METHODS.POST },
     options.timeout,
   );
 
-  put = (url: string, options: Options) => this.request(
-    url,
-    { ...options, method: METHODS.PUT },
+  put = (options: Options, route = '') => this.request(
+    this.baseUrl + route,
+    {
+      ...options,
+      method: METHODS.PUT,
+    },
     options.timeout,
   );
 
-  delete = (url: string, options: Options) => this.request(
-    url,
+  delete = (options: Options, route = '') => this.request(
+    this.baseUrl + route,
     { ...options, method: METHODS.DELETE },
     options.timeout,
   );
 
-  request = (url: string, options: Options, timeout = 5000) => {
+  private request = (url: string, options: Options, timeout = 5000) => {
     const {
       headers = {},
       method = METHODS.GET,
@@ -74,6 +84,8 @@ export class HTTPTransport {
         xhr.setRequestHeader(key, headers[key]);
       });
 
+      xhr.withCredentials = true;
+
       xhr.onload = () => {
         resolve(xhr);
       };
@@ -86,9 +98,11 @@ export class HTTPTransport {
 
       if (!data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
-        const query = data ? queryStringify(data) : null;
-        xhr.send(query);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data));
       }
     });
   };
@@ -97,14 +111,14 @@ export class HTTPTransport {
 export function fetchWithRetry(url: string, options: Options) {
   return new Promise((resolve, reject) => {
     const transport = new HTTPTransport();
-    transport.get(url, options)
+    transport.get(options)
       .then(resolve)
       .catch((error) => {
         if (options.retries === 0) {
           reject(error);
           return;
         }
-        fetchWithRetry(url, { ...options, retries: options.retries - 1 }).then(resolve, reject);
+        fetchWithRetry(url, { ...options, retries: (options?.retries ?? 0) - 1 }).then(resolve, reject);
       });
   });
 }

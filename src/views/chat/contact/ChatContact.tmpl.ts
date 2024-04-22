@@ -1,8 +1,9 @@
 import common from '@/styles/common.module.scss';
 import profile from '@/pages/profile/profile.module.scss';
 
+const wrapperClasses = [common.dFlex, common.p05, common.curDef].join(' ');
 export default `
-<div class="${common.dFlex} ${common.mb1} ${common.mbLast0}">
+<div class="${wrapperClasses}">
   <img src="{{avatar}}" alt="avatar" class="${common.avatar} ${common.aiC}">
   <div class="${profile.text}">
     <span>{{name}}</span>

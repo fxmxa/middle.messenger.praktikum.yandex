@@ -1,17 +1,25 @@
 :root {
   --bg-primary: #015fcc;
   --bg-primary-hover: #0055b7;
+  --bg-primary-disabled: #667fa2;
   --bg-secondary: lightgray;
   --bg-secondary-hover: #bdbdbd;
+  --bg-danger: #ff5e5e;
+  --bg-danger-hover: #ff8989;
+  --bg-light-hover: #f8f8f8;
   --text-secondary: gray;
   --text-danger: red;
   --text-dark-secondary: darkgrey;
+  --text-ligth: #fff;
+  --text-accent: royalblue;
+  --text-accent-hover: #1a47d5;
 }
 
 .card {
   padding: 20px 30px;
   border: solid 1px var(--bg-secondary);
   border-radius: 10px;
+  position: relative;
 
   &_modal {
     min-width: 300px;
@@ -28,8 +36,16 @@
   }
 }
 
+.ml-a {
+  margin-left: auto;
+}
+
 .mb-1 {
   margin-bottom: 1rem;
+}
+
+.mb-05 {
+  margin-bottom: .5rem;
 }
 
 .mb-0 {
@@ -51,8 +67,24 @@
   margin-top: 0;
 }
 
+.mt-05 {
+  margin-top: 0.5rem;
+}
+
 .mt-1 {
   margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.p-05 {
+  padding: .5rem;
 }
 
 .btn {
@@ -73,6 +105,14 @@
     background-color: var(--bg-primary-hover);
   }
 
+  &_danger {
+    background-color: var(--bg-danger);
+
+    &:hover {
+      background-color: var(--bg-danger-hover);
+    }
+  }
+
   &_secondary {
     background-color: var(--bg-secondary);
 
@@ -80,10 +120,27 @@
       background-color: var(--bg-secondary-hover);
     }
   }
+
+  &:disabled {
+    background-color: var(--bg-primary-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--bg-primary-disabled);
+    }
+  }
 }
 
 .d-flex {
   display: flex;
+}
+
+.jc-sb {
+  justify-content: space-between;
+}
+
+.jc-c {
+  justify-content: center;
 }
 
 .ai-c {
@@ -98,8 +155,27 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  background-color: grey;
 }
 
 .clickable {
   cursor: pointer;
 }
+
+.cur-def {
+  cursor: default;
+}
+
+.block-hover {
+  transition: .3s background-color;
+
+  &:hover {
+    background-color: var(--bg-light-hover);
+  }
+}
+
+.bdrs-10 {
+  border-radius: 10px;
+}
+
+

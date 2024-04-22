@@ -1,4 +1,4 @@
-import Route from '@/utils/Route.ts';
+import Route from '@/router/Route.ts';
 import Block from '@/utils/Block.ts';
 
 export default class Router {
@@ -49,6 +49,8 @@ export default class Router {
 
     this._currentRoute = route;
     route.render();
+
+    setDocumentTitle(pathname);
   }
 
   go(pathname: string) {
@@ -67,4 +69,14 @@ export default class Router {
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }
+}
+
+function setDocumentTitle(pathname: string) {
+  const title = convertPath(pathname) || 'Messenger';
+  document.title = title;
+}
+
+function convertPath(pathname: string) {
+  const string = pathname.slice(1).replaceAll('-', ' ');
+  return string.replace(string.charAt(0), string.charAt(0).toUpperCase());
 }

@@ -6,10 +6,17 @@ import Button from '@/@core/components/btn/btn.ts';
 import common from '@/styles/common.module.scss';
 import BtnGroup from '@/@core/components/btnGroup/btnGroup.ts';
 import validateForm from '@/utils/validateForm.ts';
-import getDataForm from '@/utils/getDataForm.ts';
+import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
+import router from '@/router/index.ts';
+import HomeLink from '@/components/links/homeLink.ts';
+import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
+import userController from '@/controllers/User.controller.ts';
 
 const cancelClasses = [common.mr1, common.btn_secondary].join(' ');
+
+const saveBtn = new Button({ text: 'Сохранить' });
+const formHelpText = new InputHelp();
 
 const form = new Block(
   { name: 'passwordEdit' },
@@ -17,17 +24,26 @@ const form = new Block(
   'form',
   [
     new Title({ text: 'Изменить пароль' }),
-    passwordField('Пароль', 'oldPassword'),
-    passwordField('Повторите пароль', 'newPassword'),
+    passwordField('Старый пароль', 'oldPassword'),
+    passwordField('Новый пароль', 'newPassword'),
     new BtnGroup({}, [
-      new Button({ text: 'Отмена', class: cancelClasses }),
-      new Button({ text: 'Сохранить' }),
+      new Button(
+        { text: 'Отмена', class: cancelClasses, type: 'button' },
+        [{ event: 'click', callback: cancelEdit }],
+      ),
+      saveBtn,
     ]),
+    new HomeLink(),
+    formHelpText,
   ],
   [{ event: 'submit', callback: onSubmit }],
 );
 
-function onSubmit(e: Event) {
+function cancelEdit() {
+  router.go('/profile-edit');
+}
+
+async function onSubmit(e: Event) {
   e.preventDefault();
 
   const hasError = validateForm(form);
@@ -35,8 +51,17 @@ function onSubmit(e: Event) {
   if (hasError) {
     return;
   }
-  const formData = getDataForm(form);
-  console.log('formData', formData);
+  const formData = getFormData(form);
+  formHelpText.setProps({ helpText: '' });
+  saveBtn.setProps({ disabled: 'disabled' });
+  const updateSuccess = await userController.updatePassword(formData);
+  if (updateSuccess) {
+    formHelpText.setProps({ helpText: 'Пароль успешно обновлен!' });
+  }
+  if (!updateSuccess) {
+    formHelpText.setProps({ helpText: 'Ошибка обновления пароля!' });
+  }
+  saveBtn.setProps({ disabled: '' });
 }
 
 const passwordEditPage = new Layout({}, [form]);

@@ -1,1 +1,1 @@
-export default '<a href="{{to}}">{{text}}</a>';
+export default '<a href="{{to}}" {{attrs}}>{{text}}</a>';
