@@ -11,7 +11,6 @@ import addChatPage from '@/pages/addChat/addChat.ts';
 import addUserToChatPage from '@/pages/addUserToChat/addUserToChat.ts';
 import chatPage from '@/pages/chat/chat.ts';
 import router from '@/router/router.ts';
-import store from '@/store/Store.ts';
 
 await AuthController.fetchUser();
 
@@ -27,8 +26,3 @@ router
   .use('/add-user-to-chat', addUserToChatPage)
   .use('/messenger', chatPage)
   .start();
-
-setTimeout(() => {
-  const state = store.getState();
-  console.log('state', state);
-}, 3000);

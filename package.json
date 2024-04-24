@@ -2,12 +2,14 @@
   "name": "middle.messenger.praktikum.yandex",
   "private": true,
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "start": "tsc && vite build && node server.js",
+    "server": "node server.js",
     "eslint": "eslint . --ext .ts",
     "check-types": "tsc --noemit",
     "stylelint": "stylelint 'src/**/*.scss'"

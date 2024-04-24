@@ -56,7 +56,7 @@ async function dialogClickHandle() {
   if (!getTokenRes || !getChatUsersRes) {
     return;
   }
-  store.set('activeChat.id', chatId);
+  store.set('activeChat.id', +chatId);
 
   ChatsController.newWs();
 }

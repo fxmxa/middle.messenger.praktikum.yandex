@@ -17,7 +17,6 @@ class AuthController {
     const { ok, json } = await userApi.request();
     if (ok) {
       store.set('user', <UserResponseType>json());
-      router.go('/messenger');
     } else {
       router.go('/');
     }

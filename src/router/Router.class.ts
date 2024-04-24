@@ -38,7 +38,9 @@ export default class RouterClass {
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname) || this.getRoute('/error400');
+    const path = pathname.length > 1 && pathname.at(-1) === '/' ? pathname.slice(0, -1) : pathname;
+
+    const route = this.getRoute(path) || this.getRoute('/error400');
     if (!route) {
       return;
     }
@@ -50,7 +52,7 @@ export default class RouterClass {
     this._currentRoute = route;
     route.render();
 
-    setDocumentTitle(pathname);
+    setDocumentTitle(path);
   }
 
   go(pathname: string) {

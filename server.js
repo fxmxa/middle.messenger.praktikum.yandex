@@ -7,7 +7,8 @@ const app = express();
 
 const dirname = path.dirname('./');
 
-app.use('/messenger', express.static(`${dirname}/dist`));
+app.use('/', express.static(`${dirname}/dist`));
+app.use('/[a-z-]+', express.static(`${dirname}/dist`));
 app.listen(PORT, () => {
   console.log(`Port ${PORT} listen...`);
 });
