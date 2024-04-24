@@ -1,17 +1,21 @@
 import ChatsUsersApi, { AddChatsUsersType } from '@/api/chats/chats.users.api.ts';
 import store from '@/store/Store.ts';
 
+export type ChatsUsersRequestResponse = Array<{
+  id: number
+  first_name: string
+  second_name: string
+  display_name: string
+  login: string
+  avatar: string
+  role: string
+}>
 class ChatsUsersController {
   async addUsers(data: AddChatsUsersType) {
     try {
       const chatsUserApi = new ChatsUsersApi();
-      const { response, status } = await chatsUserApi.update(data);
-      console.log({ response, status });
-      const statusOk = status === 200;
-      if (statusOk) {
-      // TODO: update current chat
-      }
-      return statusOk;
+      const { ok } = await chatsUserApi.update(data);
+      return ok;
     } catch (e) {
       console.error(`addUsers error ${e}`);
       return false;
@@ -21,12 +25,12 @@ class ChatsUsersController {
   async get(chatId: string) {
     try {
       const chatsUserApi = new ChatsUsersApi();
-      const { response, status } = await chatsUserApi.request(chatId);
-      const statusOk = status === 200;
-      if (statusOk) {
-        store.set('activeChat.users', JSON.parse(response));
+      const { ok, json } = await chatsUserApi.request(chatId);
+      if (ok) {
+        const users = json() as ChatsUsersRequestResponse;
+        store.set('activeChat.users', users);
       }
-      return statusOk;
+      return ok;
     } catch (e) {
       console.error(`ChatsUsersController get  error ${e}`);
       return false;

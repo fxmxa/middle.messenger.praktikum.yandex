@@ -4,7 +4,7 @@ import Title from '@/@core/components/title/title.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 import addChatTmpl from '@/pages/addChat/addChat.tmpl.ts';
@@ -12,6 +12,7 @@ import UserController from '@/controllers/User.controller.ts';
 import store from '@/store/Store.ts';
 import ChatsUsersController from '@/controllers/Chats.users.controller.ts';
 import loginField from '@/components/fields/LoginField.ts';
+import { UserSearchPayload } from '@/api/user/user.search.api.ts';
 
 const formHelp = new InputHelp({});
 const submitButton = new Button({ text: 'Добавить' });
@@ -41,7 +42,7 @@ async function addChatHandle(e: Event) {
   }
   submitButton.setProps({ disabled: 'disabled' });
 
-  const formData = getFormData(form);
+  const formData: UserSearchPayload = getFormData(form);
 
   const searchSuccess = await UserController.search(formData);
 
@@ -51,7 +52,7 @@ async function addChatHandle(e: Event) {
   }
   const { usersFound } = store.getState();
 
-  if (usersFound.length === 0) {
+  if (!usersFound || usersFound.length === 0) {
     formHelp.setProps({ helpText: 'Пользователь не найден' });
     return;
   }
@@ -62,7 +63,12 @@ async function addChatHandle(e: Event) {
     return;
   }
 
-  const { id: chatId } = store.getState().activeChat;
+  const chatId = store.getState()?.activeChat?.id;
+
+  if (chatId === undefined) {
+    formHelp.setProps({ helpText: 'Ошибка активного чата' });
+    return;
+  }
 
   const addUserStatus = await ChatsUsersController.addUsers({ users: [user.id], chatId });
 
@@ -73,7 +79,7 @@ async function addChatHandle(e: Event) {
   }
   formHelp.setProps({ helpText: '' });
 
-  await ChatsUsersController.get(chatId);
+  await ChatsUsersController.get(chatId.toString());
   router.go('/');
 }
 const addUserToChatPage = new Layout({}, [form]);

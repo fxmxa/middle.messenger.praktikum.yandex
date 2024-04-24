@@ -1,16 +1,16 @@
-// eslint-disable-next-line import/prefer-default-export
 type Indexed<T = any> = {
   [key in string]: T;
 };
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
+  const newLhs = { ...lhs };
   Object.entries(rhs).forEach(([key, value]) => {
     const valIsObj = isPlainObject(value);
     const valInLhs = Object.prototype.hasOwnProperty.call(lhs, key);
     const newVal = valInLhs && valIsObj ? merge(lhs[key], value) : value;
-    lhs[key] = newVal;
+    newLhs[key] = newVal;
   });
-  return lhs;
+  return newLhs;
 }
 
 export function isPlainObject(val: any) {

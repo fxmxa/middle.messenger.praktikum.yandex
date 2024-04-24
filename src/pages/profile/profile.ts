@@ -42,7 +42,7 @@ class Profile extends Block {
       this.setProps({
         login: user.login,
         avatar: resourceUrl(user.avatar),
-        displayName: user.display_name,
+        displayName: user?.display_name ?? '',
       });
     });
   }

@@ -28,14 +28,14 @@ class Dialogs extends Block {
     const path: string = 'chats';
     const event = `${StoreEvents.Updated}:${path}`;
     store.on(event, () => {
-      const { chats }: {chats: ChatsResponse} = store.getState();
+      const chats = store.getState()?.chats ?? [];
 
       this.children = chats.map((el) => new ChatContact(
         {
           name: el.title,
           avatar: resourceUrl(el.avatar),
-          message: el?.last_message ?? '',
-          id: el.id,
+          message: el?.last_message?.content ?? '',
+          id: el.id.toString(),
         },
         [{ event: 'click', callback: dialogClickHandle }],
       ));

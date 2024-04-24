@@ -2,11 +2,34 @@ import ChatsApi, { ChatsCreateDataType, ChatsRequestDataType } from '@/api/chats
 import store from '@/store/Store.ts';
 import ChatsTokenApi from '@/api/chats/chats.token.api.ts';
 import { isPlainObject } from '@/utils/objects.ts';
-import { last } from '@/utils/arrays.ts';
+import last from '@/utils/arrays.ts';
 
 export type sendTextMessagePayload = {
   content: string
   type: 'message' | 'file' | 'sticker'
+}
+export type ChatsRequestResponse = Array<{
+  id: number
+  title: string
+  avatar: string
+  unread_count: number
+  created_by: number
+  last_message: {
+    user: {
+      first_name: string
+      second_name: string
+      avatar: string
+      email: string
+      login: string
+      phone: string
+    }
+    time: string
+    content: string
+  }
+}>
+
+export type ChatsCreateResponse = {
+  id: number
 }
 
 class ChatsController {
@@ -22,14 +45,11 @@ class ChatsController {
   async getChats(data: ChatsRequestDataType = {}): Promise<boolean> {
     try {
       const chatsApi = new ChatsApi();
-      const { response, status } = await chatsApi.request(data);
-
-      const statusOk = status === 200;
-
-      if (statusOk) {
-        store.set('chats', JSON.parse(response));
+      const { ok, json } = await chatsApi.request(data);
+      if (ok) {
+        store.set('chats', <ChatsRequestResponse>json());
       }
-      return statusOk;
+      return ok;
     } catch (e) {
       console.error('getChats error ', e);
       return false;
@@ -39,12 +59,12 @@ class ChatsController {
   async addChat(payload: ChatsCreateDataType): Promise<boolean> {
     try {
       const chatsApi = new ChatsApi();
-      const { response, status } = await chatsApi.create(payload);
-      const statusOk = status === 200;
-      if (statusOk) {
-        store.set('activeChat.id', JSON.parse(response).id);
+      const { ok, json } = await chatsApi.create(payload);
+      if (ok) {
+        const { id } = json() as ChatsCreateResponse;
+        store.set('activeChat.id', id);
       }
-      return statusOk;
+      return ok;
     } catch (e) {
       console.error('addChat error ', e);
       return false;
@@ -54,12 +74,12 @@ class ChatsController {
   async getToken(id: number): Promise<boolean> {
     try {
       const chatsApi = new ChatsTokenApi();
-      const { response, status } = await chatsApi.create(id);
-      const statusOk = status === 200;
-      if (statusOk) {
-        store.set('activeChat.token', JSON.parse(response).token);
+      const { ok, json } = await chatsApi.create(id);
+      if (ok) {
+        const { token } = json() as {token: string};
+        store.set('activeChat.token', token);
       }
-      return statusOk;
+      return ok;
     } catch (e) {
       console.error('getToken error ', e);
       return false;
@@ -72,7 +92,13 @@ class ChatsController {
       this.socket = null;
       this.lastMessageId = 0;
     }
-    const { activeChat: { token: chatToken, id: chatId }, user: { id: userId } } = store.getState();
+    const { activeChat, user } = store.getState();
+    if (!activeChat || !user) {
+      return;
+    }
+
+    const { token: chatToken, id: chatId } = activeChat;
+    const { id: userId } = user;
 
     const chatsApi = new ChatsApi();
     this.socket = chatsApi.newWs({ chatToken, chatId, userId });
@@ -88,7 +114,6 @@ class ChatsController {
     });
 
     this.socket.addEventListener('close', (e) => {
-      // store.set('activeChat', null);
       console.log('socket close ', e);
     });
 
@@ -104,7 +129,6 @@ class ChatsController {
         console.log('needScroll', needScroll);
         this.lastMessageId = lastItem && dataObject.length === 20 ? lastItem.id : -1;
 
-        // TODO: when toggle chat clear messages immediately
         const oldMessages = store.getState()?.activeChat?.messages ?? [];
         store.set('activeChat.messages', [...oldMessages, ...dataObject]);
         return;

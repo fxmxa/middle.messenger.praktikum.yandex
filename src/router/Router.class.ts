@@ -1,7 +1,7 @@
-import Route from '@/router/Route.ts';
+import RouteClass from '@/router/Route.class.ts';
 import Block from '@/utils/Block.ts';
 
-export default class Router {
+export default class RouterClass {
   routes;
 
   history;
@@ -11,14 +11,14 @@ export default class Router {
   _rootQuery;
 
   constructor(rootQuery = '#app') {
-    this.routes = [] as Route[];
+    this.routes = [] as RouteClass[];
     this.history = window.history;
-    this._currentRoute = null as null | Route;
+    this._currentRoute = null as null | RouteClass;
     this._rootQuery = rootQuery;
   }
 
   use(pathname: string, block: Block) {
-    const route = new Route(pathname, block, this._rootQuery);
+    const route = new RouteClass(pathname, block, this._rootQuery);
 
     this.routes.push(route);
 

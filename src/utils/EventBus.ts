@@ -1,4 +1,4 @@
-export type EventCallback<T extends unknown[] = any[]> = (...args:T) => void | boolean
+export type EventCallback<T extends unknown[] = any[]> = (...args:T) => void | boolean | Promise<void>
 
 export default class EventBus {
   listeners: Record<string, EventCallback[]>;

@@ -1,28 +1,65 @@
 import EventBus from '@/utils/EventBus.ts';
-import { isPlainObject } from '@/utils/objects.ts';
+import { isPlainObject, merge } from '@/utils/objects.ts';
+import { UserResponseType } from '@/types/user.ts';
 
 type Indexed<T = unknown> = {
   [key in string]: T;
 };
-export type UserData = {
-  id: number
-  first_name: string
-  second_name: string
-  display_name: any
-  login: string
-  avatar: any
-  email: string
-  phone: string
+
+export type StoreType = {
+  user?: UserResponseType
+  usersFound?: UserResponseType[]
+  chats?: Array<{
+    id: number
+    title: string
+    avatar: string | null
+    created_by: number
+    unread_count: number
+    last_message: {
+      user: {
+        first_name: string
+        second_name: string
+        display_name: string | null
+        login: string
+        avatar: any
+      }
+      time: string
+      content: string
+      id: number
+    }
+  }>
+  activeChat?: {
+    users: Array<{
+      id: number
+      first_name: string
+      second_name: string
+      display_name?: string
+      login: string
+      avatar?: string
+      role: string
+    }>
+    messages: Array<{
+      id: number
+      user_id: number
+      chat_id: number
+      type: string
+      time: string
+      content: string
+      is_read: boolean
+      file: any
+    }>
+    token: string
+    id: number
+    scroll: boolean
+  }
 }
 
-export enum StoreEvents {
-  Updated = 'updated',
-}
+export const StoreEvents = {
+  Updated: 'updated',
+} as const;
 
 class Store extends EventBus {
-  private state: Indexed = {
-
-  };
+  private state: StoreType = {};
 
   public getState() {
     return this.state;
@@ -52,15 +89,6 @@ function set(object: Indexed | unknown, path: string, value: unknown): Indexed |
     }, {});
 
   return merge(object as Indexed, objFromPath as Indexed);
-}
-function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  Object.entries(rhs).forEach(([key, value]) => {
-    const valIsObj = isPlainObject(value);
-    const valInLhs = Object.prototype.hasOwnProperty.call(lhs, key) && isPlainObject(lhs[key]);
-    const newVal = valInLhs && valIsObj ? merge(lhs[key] as Indexed, value as Indexed) : value;
-    lhs[key] = newVal;
-  });
-  return lhs;
 }
 
 export default new Store();

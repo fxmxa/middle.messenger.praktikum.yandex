@@ -11,7 +11,7 @@ export type SignupDataType = {
 }
 
 const request = new HTTPTransport();
-export default class SignupApi extends BaseApi<SignupDataType> {
+export default class AuthSignupApi extends BaseApi<SignupDataType> {
   async create(data: SignupDataType): Promise<any> {
     const response = await request.post({ data }, '/auth/signup');
     return response;

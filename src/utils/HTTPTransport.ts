@@ -5,17 +5,17 @@ const METHODS = {
   DELETE: 'DELETE',
 } as const;
 
-type Data = Record<string, string | number> | FormData
+// type Data = Record<string, string | number> | FormData
 
-type Options = {
+type Options<T = unknown> = {
   timeout?: number
   method?: keyof typeof METHODS
   retries?: number
   headers?: Record<string, string>
-  data?: Data
+  data?: T
 }
 
-function queryStringify(data: Data) {
+function queryStringify(data: Record<string, any>) {
   if (typeof data !== 'object' || data instanceof FormData) {
     throw new Error('Data must be plain object');
   }
@@ -24,15 +24,38 @@ function queryStringify(data: Data) {
   return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '');
 }
 
+export interface RequestResult {
+  ok: boolean;
+  status: number;
+  response: string
+  json: <T>() => T;
+}
+
+function parseResult(xhr: XMLHttpRequest): RequestResult {
+  return {
+    ok: xhr.status >= 200 && xhr.status < 300,
+    status: xhr.status,
+    response: xhr.responseText,
+    json: <T>() => JSON.parse(xhr.responseText) as T,
+  };
+}
+function errorResponse(xhr: XMLHttpRequest, message: string | null = null): RequestResult {
+  return {
+    ok: false,
+    status: xhr.status,
+    response: message || xhr.statusText,
+    json: <T>() => JSON.parse(message || xhr.statusText) as T,
+  };
+}
+
 export class HTTPTransport {
   baseUrl;
 
   constructor() {
-    const baseUrl = 'https://ya-praktikum.tech/api/v2';
-    this.baseUrl = baseUrl;
+    this.baseUrl = 'https://ya-praktikum.tech/api/v2';
   }
 
-  get = (options: Options, route = '') => {
+  get = async (options: Options, route = '') => {
     const { data } = options;
     const query = data ? queryStringify(data) : '';
     const fullUrl = this.baseUrl + route + (query ? `?${query}` : '');
@@ -71,12 +94,7 @@ export class HTTPTransport {
       data,
     } = options;
 
-    return new Promise((resolve, reject) => {
-      if (!method) {
-        reject();
-        return;
-      }
-
+    return new Promise<RequestResult>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
@@ -84,17 +102,21 @@ export class HTTPTransport {
         xhr.setRequestHeader(key, headers[key]);
       });
 
+      xhr.timeout = timeout;
       xhr.withCredentials = true;
 
       xhr.onload = () => {
-        resolve(xhr);
+        resolve(parseResult(xhr));
       };
-      xhr.onabort = reject;
-      xhr.ontimeout = reject;
+      xhr.onabort = () => {
+        reject(errorResponse(xhr, 'Request abort'));
+      };
+      xhr.ontimeout = () => {
+        reject(errorResponse(xhr, 'Request timeout'));
+      };
       xhr.onerror = () => {
-        reject(new Error('onError'));
+        reject(errorResponse(xhr, 'Request failed'));
       };
-      xhr.timeout = timeout;
 
       if (!data) {
         xhr.send();

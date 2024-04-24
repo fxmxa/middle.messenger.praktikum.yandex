@@ -1,4 +1,4 @@
-export function last(data: Array<any>) {
+export default function last(data: Array<any>) {
   if (!Array.isArray(data) || !data.length) {
     return undefined;
   }

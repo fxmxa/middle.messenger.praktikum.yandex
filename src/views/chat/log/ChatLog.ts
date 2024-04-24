@@ -15,12 +15,12 @@ class ChatLog extends Block {
   }
 }
 
-let scrollTimeout = null;
+let scrollTimeout: ReturnType<typeof setTimeout>;
 
-function logScrollHandle(e) {
+function logScrollHandle(e: Event) {
   clearInterval(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-    const { scrollTop } = e.target;
+    const { scrollTop } = e.target as HTMLElement;
     if (scrollTop < 100) {
       ChatsController.getMessages();
     }

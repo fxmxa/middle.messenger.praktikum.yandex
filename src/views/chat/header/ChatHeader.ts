@@ -23,11 +23,15 @@ class ChatHeader extends Block {
     );
 
     store.on('updated:activeChat.id', () => {
-      const { chats, activeChat: { id, users } } = store.getState();
-      if (!chats || !chats.length) {
+      const { chats, activeChat } = store.getState();
+      if (!chats || !chats.length || !activeChat) {
         return;
       }
+      const { id, users } = activeChat;
       const chat = chats.find((el) => el.id === id);
+      if (!chat) {
+        return;
+      }
       const chatHeader = new ChatInfo({
         avatar: resourceUrl(chat.avatar),
         name: chat.title,

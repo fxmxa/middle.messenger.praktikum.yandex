@@ -15,11 +15,12 @@ import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
 import store, { StoreEvents } from '@/store/Store.ts';
 import RouterLink from '@/@core/components/routerLink/routerLink.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 import userController from '@/controllers/User.controller.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
 import resourceUrl from '@/utils/resourceUrl.ts';
+import { UpdateProfilePayload } from '@/api/user/userProfile.api.ts';
 import profileEditTmpl from './profileEdit.tmpl.ts';
 
 const cancelClasses = [common.mr1, common.btn_secondary].join(' ');
@@ -81,7 +82,7 @@ class ProfileEdit extends Block {
       firstName.input.setProps({ value: user.first_name });
       lastName.input.setProps({ value: user.second_name });
       login.input.setProps({ value: user.login });
-      displayName.input.setProps({ value: user.display_name });
+      displayName.input.setProps({ value: user?.display_name ?? '' });
       email.input.setProps({ value: user.email });
       phone.input.setProps({ value: user.phone });
       avatar.setProps({ avatar: resourceUrl(user.avatar) });
@@ -114,7 +115,7 @@ async function onSubmit(e: Event) {
     avatarUpdated = await userController.updateAvatar(formData);
   }
 
-  const data = getFormData(form);
+  const data: UpdateProfilePayload = getFormData(form);
   const updateSuccess = await userController.updateProfile(data);
   if (updateSuccess && avatarUpdated) {
     formHelpText.setProps({ helpText: 'Профиль успешно обновлен!' });

@@ -6,7 +6,7 @@ class ChatInfo extends Contact {
   constructor(props: Props) {
     super(props);
     store.on('updated:activeChat.users', () => {
-      const { activeChat: { users } } = store.getState();
+      const users = store.getState()?.activeChat?.users ?? [];
 
       this.setProps({
         message: `${users.length} пользователя`,

@@ -8,10 +8,11 @@ import BtnGroup from '@/@core/components/btnGroup/btnGroup.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
 import userController from '@/controllers/User.controller.ts';
+import { UserPasswordPayload } from '@/api/user/user.password.api.ts';
 
 const cancelClasses = [common.mr1, common.btn_secondary].join(' ');
 
@@ -51,7 +52,7 @@ async function onSubmit(e: Event) {
   if (hasError) {
     return;
   }
-  const formData = getFormData(form);
+  const formData: UserPasswordPayload = getFormData(form);
   formHelpText.setProps({ helpText: '' });
   saveBtn.setProps({ disabled: 'disabled' });
   const updateSuccess = await userController.updatePassword(formData);

@@ -1,6 +1,6 @@
 import Block, { Props } from '@/utils/Block.ts';
 import routerLinkTmpl from '@/@core/components/routerLink/routerLink.tmpl.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 // TODO: refactor to no cycle
 
 class RouterLink extends Block {

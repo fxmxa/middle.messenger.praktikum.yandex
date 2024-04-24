@@ -6,15 +6,21 @@ export type AddChatsUsersType = {
   chatId: number
 }
 
+export type AddChatsUsersType2 = {
+  users: Array<number>
+  chatId: number
+}
+
 const request = new HTTPTransport();
 class ChatsUsersApi extends BaseApi<AddChatsUsersType> {
-  async update(data: AddChatsUsersType) {
-    const response = await request.put({ data }, '/chats/users');
+  async request(id: string) {
+    const response = await request.get({ }, `/chats/${id}/users`);
     return response;
   }
 
-  async request(id: string) {
-    const response = await request.get({ }, `/chats/${id}/users`);
+  async update(data: AddChatsUsersType) {
+    // TODO: data type
+    const response = await request.put({ data }, '/chats/users');
     return response;
   }
 }

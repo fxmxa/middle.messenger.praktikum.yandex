@@ -7,9 +7,9 @@ export type SignInDataType = {
 }
 
 const request = new HTTPTransport();
-export default class SignInApi extends BaseApi<SignInDataType> {
-  async create(data: SignInDataType): Promise<any> {
-    const response = await request.post({ data }, '/auth/signin');
+export default class AuthUserApi extends BaseApi<unknown> {
+  async request() {
+    const response = await request.get({}, '/auth/user');
     return response;
   }
 }

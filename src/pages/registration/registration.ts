@@ -13,8 +13,9 @@ import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
 import AuthController from '@/controllers/Auth.controller.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 import RouterLink from '@/@core/components/routerLink/routerLink.ts';
+import { SignupDataType } from '@/api/auth/auth.signup.api.ts';
 
 const formHelp = new InputHelp({});
 const regBtn = new Btn({ text: 'Зарегистрироваться' });
@@ -48,7 +49,7 @@ async function onSubmit(e: Event) {
   if (hasError) {
     return;
   }
-  const formData = getFormData(form);
+  const formData: SignupDataType = getFormData(form);
   regBtn.setProps({ disabled: 'disabled' });
   const regSuccess = await AuthController.singnup(formData);
   if (!regSuccess) {

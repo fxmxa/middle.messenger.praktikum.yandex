@@ -4,12 +4,13 @@ import Title from '@/@core/components/title/title.ts';
 import validateForm from '@/utils/validateForm.ts';
 import getFormData from '@/utils/getFormData.ts';
 import Layout from '@/layouts/default/default.ts';
-import router from '@/router/index.ts';
+import router from '@/router/router.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 import addChatTmpl from '@/pages/addChat/addChat.tmpl.ts';
 import ChatsController from '@/controllers/Chats.controller.ts';
 import chatTitleField from '@/components/fields/ChatTitleField.ts';
+import { ChatsCreateDataType } from '@/api/chats/chats.api.ts';
 
 const formHelp = new InputHelp({});
 const submitButton = new Button({ text: 'Создать' });
@@ -38,7 +39,7 @@ async function addChatHandle(e: Event) {
   }
   submitButton.setProps({ disabled: 'disabled' });
 
-  const formData = getFormData(form);
+  const formData: ChatsCreateDataType = getFormData(form);
 
   const addChatStatus = await ChatsController.addChat(formData);
 

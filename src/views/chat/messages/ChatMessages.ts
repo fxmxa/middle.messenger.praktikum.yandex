@@ -18,7 +18,14 @@ class ChatMessages extends Block {
     );
     this.users = new Map();
     store.on('updated:activeChat.messages', () => {
-      const { activeChat: { messages, users, scroll } } = store.getState();
+      const activeChat = store.getState()?.activeChat;
+
+      if (!activeChat) {
+        console.error('updated:activeChat.messages');
+        return;
+      }
+
+      const { messages, users, scroll } = activeChat;
       if (!users) {
         this.children = [];
         this._render();
@@ -32,7 +39,7 @@ class ChatMessages extends Block {
       let lastUserId = -1;
       let lastDay = '';
       const groupList = structuredClone(messages).reverse().filter((el) => el.type === 'message')
-        .reduce((acc, el) => {
+        .reduce((acc: Block[], el) => {
           if (!isOneDay(el.time, lastDay)) {
             const date = formatDate(el.time);
             acc.push(new ChatDate({ date }));

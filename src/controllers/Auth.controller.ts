@@ -1,8 +1,9 @@
-import UserApi from '@/api/auth/user.api.ts';
+import AuthUserApi from '@/api/auth/auth.user.api.ts';
 import store from '@/store/Store.ts';
-import SignupApi, { SignupDataType } from '@/api/auth/signup.api.ts';
-import LogOutApi from '@/api/auth/logOut.api.ts';
-import router from '@/router/index.ts';
+import AuthSignupApi, { SignupDataType } from '@/api/auth/auth.signup.api.ts';
+import AuthLogOutApi from '@/api/auth/auth.logOut.api.ts';
+import router from '@/router/router.ts';
+import { UserResponseType } from '@/types/user.ts';
 
 class AuthController {
   fetching = false;
@@ -12,11 +13,10 @@ class AuthController {
       return;
     }
     this.fetching = true;
-    const userApi = new UserApi();
-    const userResponse = await userApi.request();
-    const { response, status } = userResponse;
-    if (status === 200) {
-      store.set('user', JSON.parse(response));
+    const userApi = new AuthUserApi();
+    const { ok, json } = await userApi.request();
+    if (ok) {
+      store.set('user', <UserResponseType>json());
     } else {
       router.go('/login');
     }
@@ -28,20 +28,16 @@ class AuthController {
       return false;
     }
     this.fetching = true;
-    const singupApi = new SignupApi();
-    const singupResponse = await singupApi.create(payload);
-    const { status } = singupResponse;
+    const singupApi = new AuthSignupApi();
+    const { ok } = await singupApi.create(payload);
     this.fetching = false;
-    return status === 200;
+    return ok;
   }
 
   async logout(): Promise<boolean> {
-    const logoutApi = new LogOutApi();
-    const logoutResponse = await logoutApi.create();
-    const { status } = logoutResponse;
-    const statusOk = status === 200;
-
-    if (statusOk) {
+    const logoutApi = new AuthLogOutApi();
+    const { ok } = await logoutApi.create();
+    if (ok) {
       store.set('user', undefined);
       router.go('/login');
       return true;

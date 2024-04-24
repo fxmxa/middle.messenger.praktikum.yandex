@@ -6,7 +6,7 @@ type ClassType = {
 }
 
 const request = new HTTPTransport();
-export default class LogOutApi extends BaseApi<ClassType> {
+export default class AuthLogOutApi extends BaseApi<ClassType> {
   async create(): Promise<any> {
     const response = await request.post({}, '/auth/logout');
     return response;

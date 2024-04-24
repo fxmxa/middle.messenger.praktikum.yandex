@@ -2,7 +2,7 @@ import Field from '@/@core/components/field/field.ts';
 import Input from '@/@core/components/input/input.ts';
 import Block from '@/utils/Block.ts';
 
-function getFormData(form: Block): Record<string, string> {
+function getFormData<T>(form: Block): T {
   const fields = form.children.filter((el) => el instanceof Field);
 
   const data = fields.flatMap((field) => field.children) // get children array of fields
