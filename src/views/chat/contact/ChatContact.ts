@@ -1,9 +1,9 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { ElementEvent, Props } from '@/utils/Block.ts';
 import contactTmpl from '@/views/chat/contact/ChatContact.tmpl.ts';
 
 class Contact extends Block {
-  constructor(props: Props) {
-    super(props, contactTmpl, 'div');
+  constructor(props: Props, events: ElementEvent[] = []) {
+    super(props, contactTmpl, 'div', [], events);
   }
 }
 

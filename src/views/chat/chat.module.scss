@@ -17,8 +17,9 @@
     padding: 22px;
   }
 
-  &__contacts {
+  &__dialogs {
     padding: 5px;
+    overflow-y: auto;
   }
 
   &__main {
@@ -30,9 +31,11 @@
 }
 
 .info {
-  padding: 10px;
   border-bottom: var(--bg-secondary) 1px solid;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .log {
@@ -41,41 +44,50 @@
   flex-direction: column;
   overflow-y: scroll;
 
-  &__date {
-    color: var(--text-dark-secondary);
-    border: var(--bg-secondary) 1px solid;
-    border-radius: 10px;
-    padding: 3px 5px;
-    place-self: center;
+  &__inner {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
 
 
 
-
-  .message {
+  .item {
     display: flex;
-    flex-direction: column;
     place-self: start;
-    align-items: start;
-    margin-bottom: 30px;
+    align-items: center;
+    justify-content: space-between;
+
 
     &:last-child {
       margin-bottom: 0;
     }
 
-    &__item {
-      color: var(--text-dark-secondary);
-      border: var(--bg-secondary) 1px solid;
-      border-radius: 10px;
-      padding: 5px 10px;
-      margin-bottom: 10px;
+  }
 
+  .date {
+    color: var(--text-ligth);
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1px 8px;
+    place-self: center;
+    font-size: 13px;
+  }
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+  .text {
+    color: var(--text-dark-secondary);
+    border: var(--bg-secondary) 1px solid;
+    border-radius: 10px;
+    padding: 3px 8px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
 
+  .time {
+    color: var(--text-secondary);
+    font-size: 13px;
   }
 
 }

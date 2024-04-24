@@ -4,11 +4,6 @@ import insertProps from '@/utils/insertProps.ts';
 type PropsFunc = (...args: string[]) => void
 export type Props = Record<string, string | PropsFunc | string[]>
 
-type Meta = {
-  tagName: string,
-  props: Props,
-}
-
 export type ElementEvent = {
   event: string,
   callback: EventCallback
@@ -23,7 +18,7 @@ export default class Block {
 
   _element: HTMLElement;
 
-  _meta: Meta;
+  _meta;
 
   tmpl: string;
 
@@ -35,11 +30,15 @@ export default class Block {
 
   props: Props;
 
+  needUpdate;
+
+  newPropsCount;
+
   constructor(
     props: Props,
     tmpl: string,
     tagName = 'div',
-    children:Block[] = [],
+    children: Block[] = [],
     events: ElementEvent[] = [],
   ) {
     const eventBus = new EventBus();
@@ -47,6 +46,9 @@ export default class Block {
       tagName,
       props,
     };
+
+    this.newPropsCount = 0;
+    this.needUpdate = [] as boolean[];
     this.events = events;
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -73,12 +75,16 @@ export default class Block {
     });
   }
 
+  _removeAttributes() {
+    [...this._element.attributes].filter((attr) => this._element.removeAttribute(attr.name));
+  }
+
   _addEvents() {
     this.events.forEach(({ event, callback }) => {
       if (!event || !callback) {
         return;
       }
-      this._element?.addEventListener(event, callback);
+      this._element?.addEventListener(event, callback.bind(this));
     });
   }
 
@@ -94,12 +100,9 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: Props, newProps: Props) {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
-    }
+  _componentDidUpdate() {
     this._removeEvents();
+    this._removeAttributes();
     this._render();
   }
 
@@ -112,12 +115,13 @@ export default class Block {
     return propChanged !== undefined;
   }
 
-  setProps = (nextProps: Props) => {
-    if (!nextProps) {
+  setProps = (newProps: Props) => {
+    if (!newProps) {
       return;
     }
-
-    Object.assign(this.props, nextProps);
+    this.needUpdate = [];
+    this.newPropsCount = Object.keys(newProps).length;
+    Object.assign(this.props, newProps);
   };
 
   get element() {
@@ -162,10 +166,18 @@ export default class Block {
       },
       set(target, prop: string, value: PropsFunc) {
         const oldProps = structuredClone(props);
-        const newPops = target;
-        newPops[prop] = value;
+        const newProps = target;
+        newProps[prop] = value;
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, newPops);
+        // TODO: why update 2 times when object with 2 props
+        self.needUpdate.push(self.componentDidUpdate(oldProps, newProps));
+
+        const isLastSet = self.needUpdate.length === self.newPropsCount;
+        const needUpdate = self.needUpdate.some((el) => el);
+        if (isLastSet && needUpdate) {
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU);
+        }
+
         return true;
       },
       deleteProperty() {
@@ -181,7 +193,7 @@ export default class Block {
   show() {
     const element = this.getContent();
     if (!element) return;
-    element.style.display = 'block';
+    element.style.display = 'flex';
   }
 
   hide() {

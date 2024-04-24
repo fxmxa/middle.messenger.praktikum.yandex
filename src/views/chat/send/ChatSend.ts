@@ -3,15 +3,17 @@ import chatSendTmpl from '@/views/chat/send/ChatSend.tmpl.ts';
 import Button from '@/@core/components/btn/btn.ts';
 import MessageField from '@/components/fields/MessageField.ts';
 import validateForm from '@/utils/validateForm.ts';
-import getDataForm from '@/utils/getDataForm.ts';
+import getFormData from '@/utils/getFormData.ts';
+import ChatsController from '@/controllers/Chats.controller.ts';
+
+const messageField = MessageField();
 
 const chatSend = new Block(
   {},
   chatSendTmpl,
   'form',
   [
-    MessageField(),
-    // new Input({ id: 'message', type: 'text' }),
+    messageField,
     new Button({ text: 'Отправить' }),
   ],
   [{ event: 'submit', callback: onSend }],
@@ -25,8 +27,12 @@ function onSend(e: Event) {
   if (hasError) {
     return;
   }
-  const formData = getDataForm(chatSend);
+  const formData: {message: string} = getFormData(chatSend);
   console.log('formData', formData);
+
+  ChatsController.sendTextMessage(formData.message);
+
+  messageField.clearInput();
 }
 
 export default chatSend;

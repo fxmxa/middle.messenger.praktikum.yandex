@@ -1,11 +1,18 @@
-import Block from '@/utils/Block.ts';
-import chatInfoTmpl from '@/views/chat/info/ChatInfo.tmpl.ts';
 import Contact from '@/views/chat/contact/ChatContact.ts';
+import store from '@/store/Store.ts';
+import { Props } from '@/utils/Block.ts';
 
-const chatInfo = new Block({}, chatInfoTmpl, 'div', [new Contact({
-  avatar: '/avatar-default.png',
-  name: 'Морфиус',
-  message: 'Был недавно',
-})]);
+class ChatInfo extends Contact {
+  constructor(props: Props) {
+    super(props);
+    store.on('updated:activeChat.users', () => {
+      const users = store.getState()?.activeChat?.users ?? [];
 
-export default chatInfo;
+      this.setProps({
+        message: `${users.length} пользователя`,
+      });
+    });
+  }
+}
+
+export default ChatInfo;

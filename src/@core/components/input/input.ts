@@ -8,7 +8,7 @@ class Input extends Block {
       inputTmpl,
       'input',
       [],
-      [...events],
+      events,
     );
   }
 }
