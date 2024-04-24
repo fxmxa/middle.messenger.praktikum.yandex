@@ -3,21 +3,9 @@ import store from '@/store/Store.ts';
 import UserPasswordApi, { UserPasswordPayload } from '@/api/user/user.password.api.ts';
 import UserAvatarApi from '@/api/user/user.avatar.api.ts';
 import UserSearchApi, { UserSearchPayload } from '@/api/user/user.search.api.ts';
-import AuthSignInApi, { SignInDataType } from '@/api/auth/auth.signIn.api.ts';
 import { UserResponseType } from '@/types/user.ts';
 
 class UserController {
-  async signIn(data: SignInDataType): Promise<boolean> {
-    try {
-      const signInApi = new AuthSignInApi();
-      const { ok } = await signInApi.create(data);
-      return ok;
-    } catch (e) {
-      console.error('signIn error ', e);
-      return false;
-    }
-  }
-
   async updateProfile(data: UpdateProfilePayload): Promise<boolean> {
     try {
       const profileApi = new UserProfileApi();
