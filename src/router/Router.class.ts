@@ -74,7 +74,7 @@ export default class RouterClass {
 }
 
 function setDocumentTitle(pathname: string) {
-  const title = convertPath(pathname) || 'Sign up';
+  const title = convertPath(pathname) || 'Sign in';
   document.title = title;
 }
 
