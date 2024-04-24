@@ -18,17 +18,19 @@ https://deploy--messenger-339f64.netlify.app/
 
 ## Ссылки на страницы
 
-- http://localhost:5173/  главная мессенджер
-- http://localhost:5173/?page=profile настройки профиля
-- http://localhost:5173/?page=profile-edit изменение профиля
-- http://localhost:5173/?page=password-edit изменение пароля
-- http://localhost:5173/?page=login авторизация
-- http://localhost:5173/?page=registration регистрация
-- http://localhost:5173/?page=error500 ошибка 500
-- http://localhost:5173/?page=error404 ошибка 404
+- http://localhost:5173/messenger  главная мессенджер
+- http://localhost:5173/settings настройки профиля
+- http://localhost:5173/settings-edit изменение профиля
+- http://localhost:5173/password-edit изменение пароля
+- http://localhost:5173 авторизация
+- http://localhost:5173/sign-up регистрация
+- http://localhost:5173/error500 ошибка 500
+- http://localhost:5173/error400 ошибка 400
 
 ## Функционал
 
 - компонентный подход
 - валидация полей формы
 - сбор данных формы
+- роутинг без перезагрузки страницы
+- взаимодействие с rest api и web socket
