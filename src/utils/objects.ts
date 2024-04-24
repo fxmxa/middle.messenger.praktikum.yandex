@@ -3,14 +3,14 @@ type Indexed<T = any> = {
 };
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  const newLhs = { ...lhs };
   Object.entries(rhs).forEach(([key, value]) => {
     const valIsObj = isPlainObject(value);
     const valInLhs = Object.prototype.hasOwnProperty.call(lhs, key);
     const newVal = valInLhs && valIsObj ? merge(lhs[key], value) : value;
-    newLhs[key] = newVal;
+    // eslint-disable-next-line no-param-reassign
+    lhs[key] = newVal;
   });
-  return newLhs;
+  return lhs;
 }
 
 export function isPlainObject(val: any) {

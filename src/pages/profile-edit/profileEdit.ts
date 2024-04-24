@@ -93,7 +93,7 @@ class ProfileEdit extends Block {
 const form = new ProfileEdit({});
 
 function cancelProfileEdit() {
-  router.go('/profile');
+  router.go('/settings');
 }
 
 async function onSubmit(e: Event) {

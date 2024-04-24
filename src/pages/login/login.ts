@@ -27,7 +27,7 @@ const form = new Block(
     LoginCreate(),
     PasswordCreate(),
     submitButton,
-    new RouterLink({ to: '/registration', text: 'Создать аккаунт' }),
+    new RouterLink({ to: '/sign-up', text: 'Создать аккаунт' }),
     formHelp,
   ],
   [{ event: 'submit', callback: onSubmit }],
@@ -50,7 +50,7 @@ async function onSubmit(e: Event) {
   if (loginStatus) {
     await AuthController.fetchUser();
     await ChatsController.getChats();
-    router.go('/');
+    router.go('/messenger');
     return;
   }
   formHelp.setProps({ helpText: 'Не верный логин или пароль' });

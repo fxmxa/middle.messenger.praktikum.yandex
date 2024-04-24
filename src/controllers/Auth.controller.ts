@@ -17,8 +17,9 @@ class AuthController {
     const { ok, json } = await userApi.request();
     if (ok) {
       store.set('user', <UserResponseType>json());
+      router.go('/messenger');
     } else {
-      router.go('/login');
+      router.go('/');
     }
     this.fetching = false;
   }
@@ -39,7 +40,7 @@ class AuthController {
     const { ok } = await logoutApi.create();
     if (ok) {
       store.set('user', undefined);
-      router.go('/login');
+      router.go('/');
       return true;
     }
     return false;

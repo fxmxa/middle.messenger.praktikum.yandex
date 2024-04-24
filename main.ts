@@ -16,16 +16,16 @@ import store from '@/store/Store.ts';
 await AuthController.fetchUser();
 
 router
-  .use('/login', loginPage)
-  .use('/profile', profilePage)
-  .use('/profile-edit', profileEditPage)
+  .use('/', loginPage)
+  .use('/settings', profilePage)
+  .use('/settings-edit', profileEditPage)
   .use('/password-edit', passwordEditPage)
   .use('/error400', error404Page)
   .use('/error500', error500Page)
-  .use('/registration', registrationPage)
+  .use('/sign-up', registrationPage)
   .use('/add-chat', addChatPage)
   .use('/add-user-to-chat', addUserToChatPage)
-  .use('/', chatPage)
+  .use('/messenger', chatPage)
   .start();
 
 setTimeout(() => {

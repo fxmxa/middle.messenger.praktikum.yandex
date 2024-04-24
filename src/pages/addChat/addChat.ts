@@ -51,7 +51,7 @@ async function addChatHandle(e: Event) {
   formHelp.setProps({ helpText: '' });
 
   await ChatsController.getChats();
-  router.go('/');
+  router.go('/messenger');
 }
 const addChatPage = new Layout({}, [form]);
 export default addChatPage;

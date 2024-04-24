@@ -33,7 +33,7 @@ const form = new Block(
     PasswordCreate(),
     PhoneField(),
     regBtn,
-    new RouterLink({ to: '/login', text: 'Войти в аккаунт' }),
+    new RouterLink({ to: '/', text: 'Войти в аккаунт' }),
     formHelp,
   ],
   [{ event: 'submit', callback: onSubmit }],
@@ -57,7 +57,7 @@ async function onSubmit(e: Event) {
   }
   if (regSuccess) {
     await AuthController.fetchUser();
-    router.go('/');
+    router.go('/messenger');
   }
   regBtn.setProps({ disabled: '' });
 }

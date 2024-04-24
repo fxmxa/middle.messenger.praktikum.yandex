@@ -41,7 +41,7 @@ const form = new Block(
 );
 
 function cancelEdit() {
-  router.go('/profile-edit');
+  router.go('/settings-edit');
 }
 
 async function onSubmit(e: Event) {

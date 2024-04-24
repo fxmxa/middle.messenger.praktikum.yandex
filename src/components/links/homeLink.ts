@@ -7,7 +7,7 @@ const homeLinkClasses = [classes.dB, classes.mt05].join(' ');
 class HomeLink extends RouterLink {
   constructor(props: Props = {}) {
     super({
-      to: '/', text: 'Назад в чат', attrs: `class="${homeLinkClasses}"`, ...props,
+      to: '/messenger', text: 'Назад в чат', attrs: `class="${homeLinkClasses}"`, ...props,
     });
   }
 }

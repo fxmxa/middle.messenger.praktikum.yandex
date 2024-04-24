@@ -16,7 +16,7 @@ const logoutBtn = new Button({ text: 'Выйти из профиля', class: bt
   { event: 'click', callback: logoutHandle },
 ]);
 
-const changeLink = new RouterLink({ to: '/profile-edit', text: 'Изменить' });
+const changeLink = new RouterLink({ to: '/settings-edit', text: 'Изменить' });
 
 const helper = new InputHelp({});
 class Profile extends Block {
