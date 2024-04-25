@@ -10,7 +10,12 @@ class ChatMain extends Block {
     super({}, chatMainTmpl, 'div');
 
     store.on('updated:activeChat.id', () => {
-      this.children = [chatInfo, chatLog, chatSend];
+      const chatId = store.getState()?.activeChat?.id;
+      if (chatId === undefined) {
+        this.children = [];
+      } else {
+        this.children = [chatInfo, chatLog, chatSend];
+      }
       this._render();
     });
   }

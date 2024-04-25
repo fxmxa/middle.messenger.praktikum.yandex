@@ -11,6 +11,7 @@ import addChatPage from '@/pages/addChat/addChat.ts';
 import addUserToChatPage from '@/pages/addUserToChat/addUserToChat.ts';
 import chatPage from '@/pages/chat/chat.ts';
 import router from '@/router/router.ts';
+import removeUserFromChat from '@/pages/removeUserFromChat/removeUserFromChat.ts';
 
 await AuthController.fetchUser();
 
@@ -24,5 +25,6 @@ router
   .use('/sign-up', registrationPage)
   .use('/add-chat', addChatPage)
   .use('/add-user-to-chat', addUserToChatPage)
+  .use('/remove-user-from-chat', removeUserFromChat)
   .use('/messenger', chatPage)
   .start();

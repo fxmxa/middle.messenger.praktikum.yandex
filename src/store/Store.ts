@@ -49,7 +49,7 @@ export type StoreType = {
       file: any
     }>
     token: string
-    id: number
+    id?: number
     scroll: boolean
   }
 }

@@ -126,7 +126,6 @@ class ChatsController {
         const lastItem = last(dataObject);
         const needScroll = this.lastMessageId === 0;
         store.set('activeChat.scroll', needScroll);
-        console.log('needScroll', needScroll);
         this.lastMessageId = lastItem && dataObject.length === 20 ? lastItem.id : -1;
 
         const oldMessages = store.getState()?.activeChat?.messages ?? [];
