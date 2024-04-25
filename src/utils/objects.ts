@@ -13,6 +13,6 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
   return lhs;
 }
 
-export function isPlainObject(val: any) {
+export function isPlainObject(val: unknown) {
   return typeof val === 'object' && val !== null && !Array.isArray(val);
 }

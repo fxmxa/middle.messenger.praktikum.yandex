@@ -21,7 +21,7 @@ export type StoreType = {
         second_name: string
         display_name: string | null
         login: string
-        avatar: any
+        avatar: unknown
       }
       time: string
       content: string
@@ -46,7 +46,7 @@ export type StoreType = {
       time: string
       content: string
       is_read: boolean
-      file: any
+      file: unknown
     }>
     token: string
     id?: number
