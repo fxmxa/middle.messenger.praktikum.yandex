@@ -7,6 +7,7 @@ import { formatDate, getTime, isOneDay } from '@/utils/dates.ts';
 import ChatDate from '@/views/chat/date/ChatDate.ts';
 import resourceUrl from '@/utils/resourceUrl.ts';
 
+const defaultUser = { avatar: '/avatar-default.png', name: 'Пользователь не найден' };
 class ChatMessages extends Block {
   users;
 
@@ -45,7 +46,7 @@ class ChatMessages extends Block {
             acc.push(new ChatDate({ date }));
           }
           if (lastUserId !== el.user_id) {
-            const user = this.users.get(el.user_id);
+            const user = this.users.get(el.user_id) || defaultUser;
             acc.push(new Contact(user));
           }
           lastUserId = el.user_id;

@@ -9,7 +9,7 @@ import ChatsUsersController from '@/controllers/Chats.users.controller.ts';
 export type ChatsResponse = Array<{
   id: number
   title: string
-  avatar: any
+  avatar: unknown
   created_by: number
   unread_count: number
   last_message: null | string

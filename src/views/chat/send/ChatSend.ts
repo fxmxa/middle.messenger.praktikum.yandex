@@ -28,7 +28,6 @@ function onSend(e: Event) {
     return;
   }
   const formData: {message: string} = getFormData(chatSend);
-  console.log('formData', formData);
 
   ChatsController.sendTextMessage(formData.message);
 

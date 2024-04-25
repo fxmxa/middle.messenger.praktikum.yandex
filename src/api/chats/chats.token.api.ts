@@ -12,7 +12,7 @@ export type ChatsRequestDataType = {
 }
 
 const request = new HTTPTransport();
-class ChatsTokenApi extends BaseApi<any> {
+class ChatsTokenApi extends BaseApi {
   async create(id: number) {
     const response = await request.post({ }, `/chats/token/${id}`);
     return response;

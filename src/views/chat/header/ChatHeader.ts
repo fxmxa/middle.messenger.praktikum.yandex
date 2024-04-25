@@ -12,6 +12,10 @@ const addUserLink = new RouterLink(
   { to: '/add-user-to-chat', text: 'Добавить пользователя', attrs: addUserLinkAttrs },
 );
 
+const removeUserLink = new RouterLink(
+  { to: '/remove-user-from-chat', text: 'Удалить пользователей', attrs: addUserLinkAttrs },
+);
+
 class ChatHeader extends Block {
   constructor() {
     super(
@@ -25,14 +29,13 @@ class ChatHeader extends Block {
     store.on('updated:activeChat.id', () => {
       const { chats, activeChat } = store.getState();
       if (!chats || !chats.length || !activeChat) {
-        console.error('!chats || !chats.length || !activeChat');
         return;
       }
       const { id, users } = activeChat;
       const chat = chats.find((el) => el.id === id);
-      console.log(chats, id);
       if (!chat) {
-        console.error('!chat');
+        this.children = [];
+        this._render();
         return;
       }
       const chatHeader = new ChatInfo({
@@ -43,6 +46,7 @@ class ChatHeader extends Block {
       this.children = [
         chatHeader,
         addUserLink,
+        removeUserLink,
       ];
       this._render();
     });

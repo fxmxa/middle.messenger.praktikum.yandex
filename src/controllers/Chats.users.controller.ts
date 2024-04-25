@@ -1,4 +1,4 @@
-import ChatsUsersApi, { AddChatsUsersType } from '@/api/chats/chats.users.api.ts';
+import ChatsUsersApi, { ChatsUsersType } from '@/api/chats/chats.users.api.ts';
 import store from '@/store/Store.ts';
 
 export type ChatsUsersRequestResponse = Array<{
@@ -11,13 +11,24 @@ export type ChatsUsersRequestResponse = Array<{
   role: string
 }>
 class ChatsUsersController {
-  async addUsers(data: AddChatsUsersType) {
+  async addUsers(data: ChatsUsersType) {
     try {
       const chatsUserApi = new ChatsUsersApi();
       const { ok } = await chatsUserApi.update(data);
       return ok;
     } catch (e) {
       console.error(`addUsers error ${e}`);
+      return false;
+    }
+  }
+
+  async deleteUsers(data: ChatsUsersType) {
+    try {
+      const chatsUserApi = new ChatsUsersApi();
+      const { ok } = await chatsUserApi.delete(data);
+      return ok;
+    } catch (e) {
+      console.error(`deleteUsers error ${e}`);
       return false;
     }
   }
