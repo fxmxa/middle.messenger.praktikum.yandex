@@ -3,6 +3,7 @@ import store from '@/store/Store.ts';
 import ChatsTokenApi from '@/api/chats/chats.token.api.ts';
 import { isPlainObject } from '@/utils/objects.ts';
 import last from '@/utils/arrays.ts';
+import saveJsonParse from '@/utils/saveJsonParse.ts';
 
 export type sendTextMessagePayload = {
   content: string
@@ -27,6 +28,14 @@ export type ChatsRequestResponse = Array<{
     content: string
   }
 }>
+
+export type Message = {
+  content: string
+  type: string
+  time: string
+  user_id: number
+  id: number
+}
 
 export type ChatsCreateResponse = {
   id: number
@@ -100,6 +109,10 @@ class ChatsController {
     const { token: chatToken, id: chatId } = activeChat;
     const { id: userId } = user;
 
+    if (!chatId) {
+      console.error('no chat id for ws');
+      return;
+    }
     const chatsApi = new ChatsApi();
     this.socket = chatsApi.newWs({ chatToken, chatId, userId });
 
@@ -119,7 +132,11 @@ class ChatsController {
 
     this.socket.addEventListener('message', (e) => {
       const { data } = e;
-      const dataObject = JSON.parse(data);
+      const dataObject = saveJsonParse(data);
+
+      if (!dataObject) {
+        return;
+      }
 
       const isMessageList = Array.isArray(dataObject);
       if (isMessageList) {
@@ -137,7 +154,7 @@ class ChatsController {
       if (!messagePlainObject) {
         return;
       }
-      const { type } = dataObject;
+      const { type } = (dataObject as Message);
 
       if (type === 'message') {
         const oldMessages = store.getState()?.activeChat?.messages ?? [];

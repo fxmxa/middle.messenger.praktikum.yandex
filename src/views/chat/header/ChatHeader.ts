@@ -29,7 +29,6 @@ class ChatHeader extends Block {
     store.on('updated:activeChat.id', () => {
       const { chats, activeChat } = store.getState();
       if (!chats || !chats.length || !activeChat) {
-        console.error('!chats || !chats.length || !activeChat');
         return;
       }
       const { id, users } = activeChat;

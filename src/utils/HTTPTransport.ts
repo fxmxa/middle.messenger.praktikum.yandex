@@ -1,3 +1,5 @@
+import saveJsonParse from '@/utils/saveJsonParse.ts';
+
 const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -36,7 +38,7 @@ function parseResult(xhr: XMLHttpRequest): RequestResult {
     ok: xhr.status >= 200 && xhr.status < 300,
     status: xhr.status,
     response: xhr.responseText,
-    json: <T>() => JSON.parse(xhr.responseText) as T,
+    json: <T>() => saveJsonParse<T>(xhr.responseText) as T,
   };
 }
 function errorResponse(xhr: XMLHttpRequest, message: string | null = null): RequestResult {
@@ -44,9 +46,11 @@ function errorResponse(xhr: XMLHttpRequest, message: string | null = null): Requ
     ok: false,
     status: xhr.status,
     response: message || xhr.statusText,
-    json: <T>() => JSON.parse(message || xhr.statusText) as T,
+    json: <T>() => saveJsonParse<T>(message || xhr.statusText) as T,
   };
 }
+
+type HTTPMethod = (options?: Options, route?: string) => Promise<RequestResult>
 
 export class HTTPTransport {
   baseUrl;
@@ -55,7 +59,7 @@ export class HTTPTransport {
     this.baseUrl = 'https://ya-praktikum.tech/api/v2';
   }
 
-  get = async (options: Options, route = '') => {
+  get: HTTPMethod = async (options = {}, route = '') => {
     const { data } = options;
     const query = data ? queryStringify(data) : '';
     const fullUrl = this.baseUrl + route + (query ? `?${query}` : '');
@@ -66,13 +70,13 @@ export class HTTPTransport {
     );
   };
 
-  post = (options: Options, route = '') => this.request(
+  post: HTTPMethod = (options = {}, route = '') => this.request(
     this.baseUrl + route,
     { ...options, method: METHODS.POST },
     options.timeout,
   );
 
-  put = (options: Options, route = '') => this.request(
+  put: HTTPMethod = (options = {}, route = '') => this.request(
     this.baseUrl + route,
     {
       ...options,
@@ -81,7 +85,7 @@ export class HTTPTransport {
     options.timeout,
   );
 
-  delete = (options: Options, route = '') => this.request(
+  delete : HTTPMethod = (options = {}, route = '') => this.request(
     this.baseUrl + route,
     { ...options, method: METHODS.DELETE },
     options.timeout,
@@ -128,19 +132,4 @@ export class HTTPTransport {
       }
     });
   };
-}
-
-export function fetchWithRetry(url: string, options: Options) {
-  return new Promise((resolve, reject) => {
-    const transport = new HTTPTransport();
-    transport.get(options)
-      .then(resolve)
-      .catch((error) => {
-        if (options.retries === 0) {
-          reject(error);
-          return;
-        }
-        fetchWithRetry(url, { ...options, retries: (options?.retries ?? 0) - 1 }).then(resolve, reject);
-      });
-  });
 }

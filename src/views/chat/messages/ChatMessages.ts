@@ -7,7 +7,7 @@ import { formatDate, getTime, isOneDay } from '@/utils/dates.ts';
 import ChatDate from '@/views/chat/date/ChatDate.ts';
 import resourceUrl from '@/utils/resourceUrl.ts';
 
-const defaultUser = { avatar: '/avatar-default.png', name: 'Пользователь удален из чата' };
+const defaultUser = { avatar: '/avatar-default.png', name: 'Пользователь не найден' };
 class ChatMessages extends Block {
   users;
 
