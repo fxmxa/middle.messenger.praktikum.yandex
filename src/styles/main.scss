@@ -1,3 +1,5 @@
+@import url('@/styles/common.module.scss');
+
 :root {
   --font-family: inter, system-ui, avenir, helvetica, arial, sans-serif;
 
@@ -17,6 +19,15 @@ body {
 button, a {
   font-family: var(--font-family);
   cursor: pointer;
+}
+
+a, a:active, a:visited {
+  color: var(--text-accent);
+  transition: .3s color;
+
+  &:hover {
+    color: var(--text-accent-hover);
+  }
 }
 
 ul {

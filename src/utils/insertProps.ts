@@ -9,7 +9,7 @@ export default (tmpl: string, props: Props) => {
   });
 
   // clear not used props
-  newTmpl = newTmpl.replaceAll(/{{.+}}/g, '');
+  newTmpl = newTmpl.replaceAll(/{{\w+}}/g, '');
 
   return newTmpl;
 };

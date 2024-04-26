@@ -1,4 +1,4 @@
-export type EventCallback<T extends unknown[] = any[]> = (...args:T) => void | boolean
+export type EventCallback<T extends unknown[] = any[]> = (...args:T) => void | boolean | Promise<void>
 
 export default class EventBus {
   listeners: Record<string, EventCallback[]>;
@@ -21,9 +21,9 @@ export default class EventBus {
     this.listeners[event] = this.listeners[event].filter((el) => el !== callback);
   }
 
-  emit(event: string, ...args: any[]): void {
+  emit(event: string, ...args: unknown[]): void {
     if (!this.listeners[event]) {
-      throw new Error(`Не существует события: ${event}`);
+      return;
     }
 
     this.listeners[event].forEach((fn) => {

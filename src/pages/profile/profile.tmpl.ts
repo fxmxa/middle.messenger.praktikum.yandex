@@ -7,10 +7,9 @@ export default `
   <div class="${common.dFlex} ${common.mb1}">
     <img src="{{avatar}}" alt="avatar" class="${common.avatar} ${common.aiC}">
     <div class="${profile.text}">
-      <span>{{fullName}}</span>
-      <span class="${profile.text__login}">{{userName}}</span>     
+      <span>{{displayName}}</span>
+      <span class="${profile.text__login}">@{{login}}</span>     
     </div>  
   </div>
-  <a href="/?page=profile-edit">Изменить</a>
 </div>    
 `.trim();

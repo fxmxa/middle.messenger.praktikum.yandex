@@ -15,7 +15,7 @@ export default (fieldValue = '') => {
         const hasError = validateField(
           field,
           [
-            (val) => /^[a-zA-Z-_]+@[a-zA-Z]+\.[a-zA-Z]+$/g.test(val) || 'Не верный формат email адреса',
+            (val) => /^[a-zA-Z-_0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/g.test(val) || 'Не верный формат email адреса',
           ]
           ,
         );

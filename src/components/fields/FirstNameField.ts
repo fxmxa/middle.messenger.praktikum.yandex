@@ -1,8 +1,6 @@
 import Field from '@/@core/components/field/field.ts';
 import validateField from '@/utils/validateField.ts';
 
-// const firstUpper = /^[A-Z]|[А-Я]/;
-
 export default (fieldValue = '') => {
   const field = new Field(
     {
