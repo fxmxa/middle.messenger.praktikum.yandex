@@ -12,10 +12,13 @@
     "server": "node server.js",
     "eslint": "eslint . --ext .ts",
     "check-types": "tsc --noemit",
-    "stylelint": "stylelint 'src/**/*.scss'"
+    "stylelint": "stylelint 'src/**/*.scss'",
+    "test": "mocha"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.16",
     "@types/has": "^1.0.2",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.19",
     "babel-eslint": "^10.1.0",
     "chai": "^5.1.0",
@@ -31,6 +34,7 @@
     "sinon": "^17.0.1",
     "stylelint": "^16.3.1",
     "stylelint-config-standard": "^36.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.8"
   },
