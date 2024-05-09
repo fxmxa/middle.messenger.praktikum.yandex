@@ -1,4 +1,4 @@
-import Block from '@/utils/Block.ts';
+import Block from '../utils/Block.ts';
 
 export default class RouteClass {
   private _pathname;

@@ -1,5 +1,5 @@
-import EventBus, { EventCallback } from '@/utils/EventBus.ts';
-import insertProps from '@/utils/insertProps.ts';
+import insertProps from './insertProps.ts';
+import EventBus, { EventCallback } from './EventBus.ts';
 
 type PropsFunc = (...args: string[]) => void
 export type Props = Record<string, string | PropsFunc | string[]>
