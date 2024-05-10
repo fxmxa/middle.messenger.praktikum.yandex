@@ -1,4 +1,4 @@
-import Block, { Props } from '../../../utils/Block.ts';
+import Block, { Props } from '../../../utils/block/Block.ts';
 import titleTmpl from './title.tmpl.ts';
 
 class Title extends Block {

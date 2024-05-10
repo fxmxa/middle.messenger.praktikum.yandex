@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import chatMessageGroupTmpl from '@/views/chat/messageGroup/ChatMessageGroup.tmpl.ts';
 import Contact from '@/views/chat/contact/ChatContact.ts';
 import ChatMessage from '@/views/chat/message/ChatMessage.ts';

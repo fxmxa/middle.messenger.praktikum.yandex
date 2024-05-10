@@ -1,4 +1,4 @@
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import chatHeaderTmpl from '@/views/chat/header/ChatHeader.tmpl.ts';
 import RouterLink from '@/@core/components/routerLink/routerLink.ts';
 import classes from '@/styles/common.module.scss';

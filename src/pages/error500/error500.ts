@@ -1,5 +1,5 @@
 import error500Tmpl from '@/pages/error500/error500.tmpl.ts';
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import Layout from '@/layouts/default/default.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 

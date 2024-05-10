@@ -1,4 +1,4 @@
-import Block, { Props, ElementEvent } from '@/utils/Block.ts';
+import Block, { Props, ElementEvent } from '@/utils/block/Block.ts';
 import store from '@/store/Store.ts';
 import Option from '@/@core/components/option/option.ts';
 import selectTmpl from './select.tmpl.ts';

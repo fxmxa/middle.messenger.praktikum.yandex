@@ -1,4 +1,4 @@
-import Block, { Props, ElementEvent } from '@/utils/Block.ts';
+import Block, { Props, ElementEvent } from '@/utils/block/Block.ts';
 import inputTmpl from './input.tmpl.ts';
 
 class Input extends Block {

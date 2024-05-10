@@ -1,4 +1,4 @@
-import Block, { ElementEvent, Props } from '@/utils/Block.ts';
+import Block, { ElementEvent, Props } from '@/utils/block/Block.ts';
 import InputHelp from '@/@core/components/inputHelp/inputHelp.ts';
 import fieldSingleTmpl from '@/@core/components/field/fieldSingle.tmpl.ts';
 import Input from '../input/input.ts';

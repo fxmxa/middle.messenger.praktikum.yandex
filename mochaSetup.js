@@ -6,3 +6,4 @@ const jsdom = new JSDOM('<body><div id="app"></div></body>', {
 
 global.window = jsdom.window;
 global.document = jsdom.window.document;
+global.Element = jsdom.window.Element;

@@ -1,4 +1,4 @@
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import chatSendTmpl from '@/views/chat/send/ChatSend.tmpl.ts';
 import Button from '@/@core/components/btn/btn.ts';
 import MessageField from '@/components/fields/MessageField.ts';

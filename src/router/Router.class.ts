@@ -1,5 +1,5 @@
 import RouteClass from './Route.class.ts';
-import Block from '../utils/Block.ts';
+import Block from '../utils/block/Block.ts';
 
 export default class RouterClass {
   routes;

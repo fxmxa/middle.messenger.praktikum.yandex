@@ -1,5 +1,5 @@
 import error404Tmpl from '@/pages/error404/error404.tmpl.ts';
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import Layout from '@/layouts/default/default.ts';
 import HomeLink from '@/components/links/homeLink.ts';
 

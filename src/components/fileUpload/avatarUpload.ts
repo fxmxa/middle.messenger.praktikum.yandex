@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import Input from '@/@core/components/input/input.ts';
 import fileUploadTmpl from './avatarUpload.tmpl.ts';
 import classes from './avatarUpload.module.scss';

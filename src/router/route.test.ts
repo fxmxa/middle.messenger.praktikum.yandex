@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import Block from '../utils/Block.ts';
+import Block from '../utils/block/Block.ts';
 import RouteClass from './Route.class.ts';
 
 describe('Route', () => {

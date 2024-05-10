@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import defaultTmpl from '@/layouts/default/default.tmpl.ts';
 
 class Layout extends Block {

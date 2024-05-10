@@ -1,4 +1,4 @@
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import Button from '@/@core/components/btn/btn.ts';
 import Title from '@/@core/components/title/title.ts';
 import LoginCreate from '@/components/fields/LoginField.ts';
