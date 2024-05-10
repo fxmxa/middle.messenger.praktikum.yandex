@@ -1,5 +1,5 @@
 import BaseApi from '@/api/base.api.ts';
-import { HTTPTransport } from '@/utils/HTTPTransport.ts';
+import { HTTPTransport } from '@/utils/HTTPTransport/HTTPTransport.ts';
 
 export type SignupDataType = {
   first_name: string

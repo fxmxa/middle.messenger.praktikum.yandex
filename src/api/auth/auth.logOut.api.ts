@@ -1,5 +1,5 @@
 import BaseApi from '@/api/base.api.ts';
-import { HTTPTransport } from '@/utils/HTTPTransport.ts';
+import { HTTPTransport } from '@/utils/HTTPTransport/HTTPTransport.ts';
 
 const request = new HTTPTransport();
 export default class AuthLogOutApi extends BaseApi {
