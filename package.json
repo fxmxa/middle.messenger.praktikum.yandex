@@ -13,8 +13,7 @@
     "eslint": "eslint . --ext .ts",
     "check-types": "tsc --noemit",
     "stylelint": "stylelint 'src/**/*.scss'",
-    "test": "mocha",
-    "prepare": "husky"
+    "test": "mocha"
   },
   "husky": {
     "hooks": {
