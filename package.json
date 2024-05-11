@@ -16,11 +16,6 @@
     "test": "mocha",
     "prepare": "husky"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint:all"
-    }
-  },
   "devDependencies": {
     "@types/chai": "^4.3.16",
     "@types/has": "^1.0.2",
