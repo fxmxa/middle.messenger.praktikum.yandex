@@ -1,4 +1,0 @@
-yarn eslint
-yarn check-types
-yarn stylelint
-yarn test
