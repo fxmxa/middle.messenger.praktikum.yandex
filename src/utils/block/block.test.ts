@@ -12,12 +12,6 @@ describe('Block', () => {
     [{ event: 'click', callback: (e) => e.currentTarget.classList.add('clicked') }],
   );
 
-  it('element is created', () => {
-    const el = btnBlock.element;
-    // @ts-ignore
-    console.log(el instanceof Element);
-  });
-
   it('inner html is correct', () => {
     const inner = btnBlock.element.innerHTML;
 
