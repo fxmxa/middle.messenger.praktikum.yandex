@@ -9,3 +9,6 @@ global.window = jsdom.window;
 global.document = jsdom.window.document;
 global.Element = jsdom.window.Element;
 global.XMLHttpRequest = xhr2;
+global.structuredClone = global.structuredClone || function (value) {
+  return JSON.parse(JSON.stringify(value));
+};
