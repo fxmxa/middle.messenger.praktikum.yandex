@@ -13,7 +13,7 @@
     "eslint": "eslint . --ext .ts",
     "check-types": "tsc --noemit",
     "stylelint": "stylelint 'src/**/*.scss'",
-    "test": "mocha",
+    "test": "mocha --es-module-specifier-resolution=node --timeout 10000",
     "prepare": "husky install"
   },
   "devDependencies": {
