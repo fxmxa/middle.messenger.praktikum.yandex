@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.16",
     "@types/has": "^1.0.2",
+    "@types/jsdom": "^21.1.6",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.19",
     "babel-eslint": "^10.1.0",
