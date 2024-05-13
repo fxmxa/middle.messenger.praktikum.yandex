@@ -1,6 +1,6 @@
 import Field from '@/@core/components/field/field.ts';
 import Input from '@/@core/components/input/input.ts';
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 
 function validateForm(form: Block) {
   const fields = form.children.filter((el) => el instanceof Field);

@@ -1,5 +1,5 @@
 import passwordEditTmpl from '@/pages/password-edit/passwordEdit.tmpl.ts';
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import Title from '@/@core/components/title/title.ts';
 import passwordField from '@/components/fields/PasswordField.ts';
 import Button from '@/@core/components/btn/btn.ts';

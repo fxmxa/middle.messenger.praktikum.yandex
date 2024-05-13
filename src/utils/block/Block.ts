@@ -1,5 +1,5 @@
-import EventBus, { EventCallback } from '@/utils/EventBus.ts';
-import insertProps from '@/utils/insertProps.ts';
+import insertProps from '../insertProps.ts';
+import EventBus, { EventCallback } from '../EventBus.ts';
 
 type PropsFunc = (...args: string[]) => void
 export type Props = Record<string, string | PropsFunc | string[]>
@@ -169,7 +169,6 @@ export default class Block {
         const newProps = target;
         newProps[prop] = value;
 
-        // TODO: why update 2 times when object with 2 props
         self.needUpdate.push(self.componentDidUpdate(oldProps, newProps));
 
         const isLastSet = self.needUpdate.length === self.newPropsCount;

@@ -4,12 +4,13 @@
 
 ## Установка и запуск проекта
 
-- `npm install` — установка пакетов
-- `npm run dev` — запуск версии для разработчика
-- `npm run eslint` — проверка eslint
-- `npm run check-types` — проверка типов eslint
-- `npm run stylelint` — проверка стилей
-- `npm run start` — сборка продакшен версии и запуск express сервера по адресу http://localhost:3000/
+- `yarn` — установка пакетов
+- `yarn dev` — запуск версии для разработчика
+- `yarn eslint` — проверка eslint
+- `yarn check-types` — проверка типов eslint
+- `yarn stylelint` — проверка стилей
+- `yarn test` — запуск тестов
+- `yarn start` — сборка продакшен версии и запуск express сервера по адресу http://localhost:3000/
 
 ## Ссылка на проект в netlify
 
@@ -34,3 +35,5 @@ https://deploy--messenger-339f64.netlify.app/
 - сбор данных формы
 - роутинг без перезагрузки страницы
 - взаимодействие с rest api и web socket
+- тестирование компонента, роутера, модуля запросов
+- прекоммит: запуск тестов и линтеров

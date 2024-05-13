@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import chatMessageTmpl from '@/views/chat/message/ChatMessage.tmpl.ts';
 
 class ChatMessage extends Block {

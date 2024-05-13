@@ -1,6 +1,6 @@
 import Field from '@/@core/components/field/field.ts';
 import Input from '@/@core/components/input/input.ts';
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import sanitize from '@/utils/sanitize.ts';
 
 function getFormData<T>(form: Block): T {

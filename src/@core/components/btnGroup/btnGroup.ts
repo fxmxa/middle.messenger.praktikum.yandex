@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import btnGroupTmpl from '@/@core/components/btnGroup/btnGroup.tmpl.ts';
 
 class BtnGroup extends Block {

@@ -1,4 +1,4 @@
-import saveJsonParse from '@/utils/saveJsonParse.ts';
+import saveJsonParse from '../saveJsonParse.ts';
 
 const METHODS = {
   GET: 'GET',
@@ -55,8 +55,8 @@ type HTTPMethod = (options?: Options, route?: string) => Promise<RequestResult>
 export class HTTPTransport {
   baseUrl;
 
-  constructor() {
-    this.baseUrl = 'https://ya-praktikum.tech/api/v2';
+  constructor(baseUrl = 'https://ya-praktikum.tech/api/v2') {
+    this.baseUrl = baseUrl;
   }
 
   get: HTTPMethod = async (options = {}, route = '') => {

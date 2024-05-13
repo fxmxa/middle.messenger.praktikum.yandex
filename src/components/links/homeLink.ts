@@ -1,6 +1,6 @@
 import classes from '@/styles/common.module.scss';
 import RouterLink from '@/@core/components/routerLink/routerLink.ts';
-import { Props } from '@/utils/Block.ts';
+import { Props } from '@/utils/block/Block.ts';
 
 const homeLinkClasses = [classes.dB, classes.mt05].join(' ');
 

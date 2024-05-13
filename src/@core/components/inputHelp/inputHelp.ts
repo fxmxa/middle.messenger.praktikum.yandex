@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import inputHelpTmpl from '@/@core/components/inputHelp/inputHelp.tmpl.ts';
 
 class InputHelp extends Block {

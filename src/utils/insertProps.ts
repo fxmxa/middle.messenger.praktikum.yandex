@@ -1,4 +1,4 @@
-import type { Props } from '@/utils/Block.ts';
+import type { Props } from '@/utils/block/Block.ts';
 
 export default (tmpl: string, props: Props) => {
   let newTmpl = tmpl;

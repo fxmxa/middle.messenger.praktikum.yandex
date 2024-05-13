@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import ChatDateTmpl from '@/views/chat/date/ChatDate.tmpl.ts';
 
 class ChatDate extends Block {

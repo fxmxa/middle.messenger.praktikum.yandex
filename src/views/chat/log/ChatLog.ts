@@ -1,4 +1,4 @@
-import Block from '@/utils/Block.ts';
+import Block from '@/utils/block/Block.ts';
 import chatLogTmpl from '@/views/chat/log/ChatLog.tmpl.ts';
 import chatMessages from '@/views/chat/messages/ChatMessages.ts';
 import ChatsController from '@/controllers/Chats.controller.ts';

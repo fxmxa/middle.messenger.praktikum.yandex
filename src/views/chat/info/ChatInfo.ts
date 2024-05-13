@@ -1,6 +1,6 @@
 import Contact from '@/views/chat/contact/ChatContact.ts';
 import store from '@/store/Store.ts';
-import { Props } from '@/utils/Block.ts';
+import { Props } from '@/utils/block/Block.ts';
 
 class ChatInfo extends Contact {
   constructor(props: Props) {

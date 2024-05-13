@@ -1,4 +1,4 @@
-import Block, { ElementEvent, Props } from '@/utils/Block.ts';
+import Block, { ElementEvent, Props } from '@/utils/block/Block.ts';
 import linkTmpl from './link.tmpl.ts';
 
 class Link extends Block {

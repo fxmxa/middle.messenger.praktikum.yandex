@@ -1,4 +1,4 @@
-import Block, { ElementEvent, Props } from '@/utils/Block.ts';
+import Block, { ElementEvent, Props } from '@/utils/block/Block.ts';
 import contactTmpl from '@/views/chat/contact/ChatContact.tmpl.ts';
 
 class Contact extends Block {

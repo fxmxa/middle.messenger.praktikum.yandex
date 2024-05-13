@@ -1,4 +1,4 @@
-import Block, { Props } from '@/utils/Block.ts';
+import Block, { Props } from '@/utils/block/Block.ts';
 import Layout from '@/layouts/default/default.ts';
 import Button from '@/@core/components/btn/btn.ts';
 import classes from '@/styles/common.module.scss';
